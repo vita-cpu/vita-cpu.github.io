@@ -83,12 +83,10 @@
   <div id="card">
     <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E5%8D%A1%E7%89%87.png?raw=true'" alt="Displayed Image" /> <!-- 示例图片，您可以替换为您希望显示的图片 -->
 </div>
-    <!-- <div id="game-board" onclick="moveCharacter(event)">
-      <img src="https://github.com/vita-cpu/Pradaproject/blob/main/icon.png?raw=true" alt="Character Icon" class="character" id="character">
-    </div> -->
+
        
     <div class="image-container" id="image_container">
-      <img src="https://github.com/vita-cpu/Pradaproject/blob/main/icon.png?raw=true" alt="Character Icon"
+      <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E9%99%8D%E8%90%BD%E4%BC%9E-%E6%A9%99.png?raw=true" alt="Character Icon"
         class="character" id="character" style="width: 5%; z-index:1;">
         <div style="position: relative;">
           <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E6%A3%8B%E7%9B%98%E6%9B%B4%E6%96%B0_00.png?raw=true" alt="Your Image">
@@ -233,6 +231,11 @@ document.addEventListener('DOMContentLoaded', function () {
          var target = event.target;
          if (!target.id.startsWith('B_')) return; // 忽略非 B_ 开头的元素
 
+       // 检查是否是传送门格子，如果是，则不执行移动操作
+       if (target.id === 'B_Pass') {
+         return;
+       }
+
          var currentCellId = character.getAttribute('data-current-cell') || 'B_Start';
          var targetCellId = target.id;
 
@@ -308,7 +311,7 @@ document.addEventListener('DOMContentLoaded', function () {
                  character.style.left = nextX + 'px';
                  character.style.top = nextY + 'px';
                  character.classList.add('jumping'); // 开始跳动
-             }, i * 1000); // 调整每段的延迟时间
+             }, i * 300); // 调整每段的延迟时间
 
              // 在下一次跳动开始之前移除跳动类
              setTimeout(function() {
@@ -338,40 +341,32 @@ document.addEventListener('DOMContentLoaded', function () {
  });
 
 
-//增加传送门
-// 获取需要监视点击事件的<div>元素
-var B_Pass = document.getElementById("B_Pass");
-var B_G = document.getElementById("B_G");
+
+
+
+ //传送门
 // 添加点击事件处理程序
 B_Pass.addEventListener("click", function(event) {
-    // 获取鼠标点击事件的坐标
-    var startX = parseInt(character.style.left, 10) || 0;
-    var startY = parseInt(character.style.top, 10) || 0;
-    var endX = B_G.getBoundingClientRect().left + B_G.offsetWidth / 2; // 获取 B_G 元素的中心 X 坐标
-    var endY = B_G.getBoundingClientRect().top + B_G.offsetHeight / 2;   // 获取 B_G 元素的中心 Y 坐标
+  var startX = parseInt(character.style.left, 10) || 0;
+  var startY = parseInt(character.style.top, 10) || 0;
+  var endX = B_G.getBoundingClientRect().left + B_G.offsetWidth / 2;
+  var endY = B_G.getBoundingClientRect().top + B_G.offsetHeight / 2;
 
+  character.style.left = endX + 'px';
+  character.style.top = endY + 'px';
+  character.classList.add('jumping');
 
-    // Divide the path into seven segments
-    var deltaX = (endX - startX) / 7;
-    var deltaY = (endY - startY) / 7;
+  setTimeout(function() {
+    character.classList.remove('jumping');
+  }, 1);
 
-    // Move and jump in seven segments
-    for (let i = 1; i <= 7; i++) {
-        setTimeout(function() {
-            character.style.left = startX + deltaX * i + 'px';
-            character.style.top = startY + deltaY * i + 'px';
-            character.classList.add('jumping');
-        }, i * 0.01); // Delay for each segment
+  // 传送完成后更新当前格子
+  setTimeout(function() {
+    character.setAttribute('data-current-cell', 'B_G');
+  }, 500);
 
-        // Remove the jumping class after each jump
-        setTimeout(function() {
-            character.classList.remove('jumping');
-        }, i * 500 + 600);
-    }
-
-    // 创建弹窗显示坐标信息
-    var message = "恭喜你触发了传送门(*≧ω≦)！";
-    alert(message);
+  var message = "恭喜你触发了传送门(*≧ω≦)！";
+  alert(message);
 });
 
 </script>
