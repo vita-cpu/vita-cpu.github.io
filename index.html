@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Character with Triple Jump Effect</title>
+  <title>Interactive Character with Enhanced Jump Effect</title>
   <style>
     body, html {
       margin: 0;
@@ -11,61 +11,369 @@
       overflow: hidden;
     }
 
+    #card {
+        display: none; /* Default to not displayed */
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000; /* Make sure this is higher than other elements */
+        background-color: white;
+        border: 1px solid black;
+        padding: 20px;
+        width: auto; /* Adjust as necessary */
+        height: auto; /* Adjust as necessary */
+        max-width: 80%; /* Prevent the image from being too large */
+        max-height: 80%; /* Prevent the image from being too large */
+        overflow: hidden; /* Hide the overflow */
+    }
+    #card img {
+        width: 100%; /* Adjust the image to the container width */
+        height: auto; /* Adjust the image height automatically */
+    }
     #game-board {
       position: relative;
-      width: 100%;
-      height: 100%;
-      background-image: url('https://github.com/vita-cpu/Pradaproject/blob/main/%E6%A3%8B%E7%9B%98%E6%9B%B4%E6%96%B0_00.png?raw=true');
+      width: 5%;
+      height: 5%;
+      /* background-image: url('https://github.com/vita-cpu/Pradaproject/blob/main/%E6%A3%8B%E7%9B%98%E6%9B%B4%E6%96%B0_00.png?raw=true');
       background-position: center;
       background-repeat: no-repeat;
-      background-size: contain;
+      background-size: contain; */
     }
 
     .character {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100px; /* Adjust the size of your character */
+      width: 5%;
       cursor: pointer;
-      transition: all 0.5s ease;
+      transition: left 0.5s, top 0.5s;
     }
 
     @keyframes jump {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-50px); } /* Increase jump height */
+      50% { transform: translateY(-15%); } /* Increased jump height */
     }
 
     .jumping {
-      animation: jump 0.6s ease-out 3; /* Jump three times */
+      animation: jump 0.6s ease-out;
     }
+
+    .image-container {
+      /* left:10%; */
+      padding-left: 10%;
+  width: 80%; /* 设置div的宽度为100% */
+  height: 100%; /* 设置div的高度为视口的高度，以充满屏幕 */
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  overflow: hidden; /*隐藏溢出的部分*/
+}
+
+    .image-container img {
+      max-width: 100%; /* 图片最大宽度为100% */
+      max-height: 100%; /* 图片最大高度为100% */
+      width: auto; /* 自动调整宽度 */
+      height: auto; /*自动调整高度*/
+    }
+
   </style>
 </head>
 <body>
-
-<div id="game-board" onclick="moveCharacter(event)">
-  <img src="https://github.com/vita-cpu/Pradaproject/blob/main/icon.png?raw=true" alt="Character Icon" class="character" id="character">
+  <div id="card">
+    <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E5%8D%A1%E7%89%87.png?raw=true'" alt="Displayed Image" /> <!-- 示例图片，您可以替换为您希望显示的图片 -->
 </div>
+    <!-- <div id="game-board" onclick="moveCharacter(event)">
+      <img src="https://github.com/vita-cpu/Pradaproject/blob/main/icon.png?raw=true" alt="Character Icon" class="character" id="character">
+    </div> -->
+       
+    <div class="image-container" id="image_container">
+      <img src="https://github.com/vita-cpu/Pradaproject/blob/main/icon.png?raw=true" alt="Character Icon"
+        class="character" id="character" style="width: 5%; z-index:1;">
+        <div style="position: relative;">
+          <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E6%A3%8B%E7%9B%98%E6%9B%B4%E6%96%B0_00.png?raw=true" alt="Your Image">
+          <div style="position:absolute;left:2%;top:3.3%;width:96%;height: 82.3%;" id="block">
+          <!-- 这里是说明格子 -->
+        <div style="position:absolute;left:0%;top:0%;width:12.5%;height: 60%;" id="instruction">
+        </div>
+        <!--x 说明格子结束 x-->
 
+        <!-- 这里开始是第1行的格子 -->
+        <div style="position:absolute;left:12.5%;top:0%;width:25%;height: 20%;" id="logo">
+        </div>
+        <!-- B表示Block格子，B_Start表示 Start 这个格子；同理 B_O表示字母为O的格子 -->
+        <div style="position:absolute;left:37.5%;top:0%;width:12.5%;height: 20%;" id="B_Start">
+        </div>
+
+        <div style="position:absolute;left:50%;top:0%;width:12.5%;height: 20%;" id="B_O">
+        </div>
+        <div style="position:absolute;left:62.5%;top:0%;width:12.5%;height: 20%;" id="B_Q">
+        </div>
+        <div style="position:absolute;left:75%;top:0%;width:12.5%;height: 20%;" id="B_C">
+        </div>
+        <div style="position:absolute;left:87.5%;top:0%;width:12.5%;height: 20%;" id="B_Pass">
+        </div>
+        <!--x 第1行的格子结束 x-->
+
+
+         <!-- 这里开始是第2行的格子 -->
+         <div style="position:absolute;left:12.5%;top:20%;width:12.5%;height: 20%;" id="B_K">
+        </div>
+        <div style="position:absolute;left:25%;top:20%;width:12.5%;height: 20%;" id="B_X">
+        </div>
+        <div style="position:absolute;left:37.5%;top:20%;width:12.5%;height: 20%;" id="B_W">
+        </div>
+        <div style="position:absolute;left:50%;top:20%;width:12.5%;height: 20%;" id="B_Pass2">
+        </div>
+        <div style="position:absolute;left:62.5%;top:20%;width:12.5%;height: 20%;" id="B_N">
+        </div>
+        <div style="position:absolute;left:75%;top:20%;width:12.5%;height: 20%;" id="B_I">
+        </div>
+        <div style="position:absolute;left:87.5%;top:20%;width:12.5%;height: 20%;" id="B_G">
+        </div>
+        <!--x 第2行的格子结束 x-->
+
+        <!-- 这里开始是第3行的格子 -->
+        <div style="position:absolute;left:12.5%;top:40%;width:12.5%;height: 20%;" id="B_Pass3">
+        </div>
+        <div style="position:absolute;left:25%;top:40%;width:12.5%;height: 20%;" id="B_Y">
+        </div>
+        <div style="position:absolute;left:37.5%;top:40%;width:12.5%;height: 20%;" id="B_J">
+        </div>
+        <div style="position:absolute;left:50%;top:40%;width:12.5%;height: 20%;" id="B_E">
+        </div>
+        <div style="position:absolute;left:62.5%;top:40%;width:12.5%;height: 20%;" id="B_Choose3">
+        </div>
+        <div style="position:absolute;left:75%;top:40%;width:12.5%;height: 20%;" id="B_F">
+        </div>
+        <div style="position:absolute;left:87.5%;top:40%;width:12.5%;height: 20%;" id="B_S">
+        </div>
+        <!--x 第3行的格子结束 x-->
+
+        <!-- 这里开始是第4行的格子 -->
+        <div style="position:absolute;left:0%;top:60%;width:12.5%;height: 20%;" id="B_U">
+        </div>
+        <div style="position:absolute;left:12.5%;top:60%;width:12.5%;height: 20%;" id="B_L">
+        </div>
+        <div style="position:absolute;left:25%;top:60%;width:12.5%;height: 20%;" id="B_Choose4">
+        </div>
+        <div style="position:absolute;left:37.5%;top:60%;width:12.5%;height: 20%;" id="B_V">
+        </div>
+        <div style="position:absolute;left:50%;top:60%;width:12.5%;height: 20%;" id="B_P">
+        </div>
+        <div style="position:absolute;left:62.5%;top:60%;width:12.5%;height: 20%;" id="B_A">
+        </div>
+        <div style="position:absolute;left:75%;top:60%;width:12.5%;height: 20%;" id="B_R">
+        </div>
+        <div style="position:absolute;left:87.5%;top:60%;width:12.5%;height: 20%;" id="B_H">
+        </div>
+        <!--x 第4行的格子结束 x-->
+
+        <!-- 这里开始是第5行的格子 -->
+        <div style="position:absolute;left:0%;top:80%;width:12.5%;height: 20%;" id="B_D">
+        </div>
+        <div style="position:absolute;left:12.5%;top:80%;width:12.5%;height: 20%;" id="B_B">
+        </div>
+        <div style="position:absolute;left:25%;top:80%;width:12.5%;height: 20%;" id="B_M">
+        </div>
+        <div style="position:absolute;left:37.5%;top:80%;width:12.5%;height: 20%;" id="B_T">
+        </div>
+        <div style="position:absolute;left:50%;top:80%;width:12.5%;height: 20%;" id="B_Z">
+        </div>
+        <div style="position:absolute;left:62.5%;top:80%;width:12.5%;height: 20%;" id="B_End">
+        </div>
+        <div style="position:absolute;left:75%;top:80%;width:25%;height: 20%;" id="B_Ans">
+        </div>
+        <!--x 第5行的格子结束 x-->
+          
+          </div>
+        </div>
+    </div>
+    
+  
 <script>
-  function moveCharacter(e) {
-    var character = document.getElementById('character');
-    var gameBoardRect = e.currentTarget.getBoundingClientRect();
 
-    // Calculate the new position, adjusting for the character's size
-    var newX = e.clientX - gameBoardRect.left - (character.offsetWidth / 2);
-    var newY = e.clientY - gameBoardRect.top - (character.offsetHeight / 2);
+//这里加了事件监听
+document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('B_Start').addEventListener('click', function() {
+          
+        document.getElementById('card').style.display = 'block'; // 显示卡片
 
-    // Set the character's new position
-    character.style.left = newX + 'px';
-    character.style.top = newY + 'px';
+      });
+  });
 
-    // Add the jumping effect
-    character.classList.add('jumping');
-    // Remove the class after the animation completes
-    character.addEventListener('animationend', function() {
-      character.classList.remove('jumping');
-    }, { once: true });
-  }
+  document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('card').addEventListener('click', function() {
+          
+        document.getElementById('card').style.display = 'none'; // 隐藏卡片
+
+      });
+  });
+
+
+
+  //这里是控制边缘线啥的，限制移动的代码
+ document.addEventListener('DOMContentLoaded', function() {
+     var character = document.getElementById('character');
+
+     // 判断是否可以越过上下边界
+     function canCrossBoundary(cellId) {
+        //  return ['B_Pass', 'B_G', 'B_Pass3', 'B_K', 'B_F', 'B_U', 'B_R', 'B_D'].includes(cellId);
+         return ['B_Pass', 'B_K', 'B_S', 'B_U'].includes(cellId);
+     }
+
+     function canCrossBoundary2(cellId) {
+          return [ 'B_G', 'B_Pass3', 'B_H', 'B_D'].includes(cellId);
+     }
+
+
+
+     // 处理角色移动
+     function handleCharacterMove(event) {
+         var target = event.target;
+         if (!target.id.startsWith('B_')) return; // 忽略非 B_ 开头的元素
+
+         var currentCellId = character.getAttribute('data-current-cell') || 'B_Start';
+         var targetCellId = target.id;
+
+        //  var message = "currentCellId：" + currentCellId + "\n targetCellId：" + targetCellId;
+        //  alert(message);
+
+         
+         var finalMove = function() {
+             // 计算点击位置
+             var rect = target.getBoundingClientRect();
+             var x = rect.left + window.scrollX + (rect.width - character.offsetWidth) / 2;
+             var y = rect.top + window.scrollY + (rect.height - character.offsetHeight) / 2;
+            var res1= parseInt(rect.top,10) -parseInt(character.style.top, 10); 
+            // var message = "rect.top:" + rect.top + "\n character: " + character.style.top+"\n"+res1;
+            // alert(message);
+
+            //  res1<0表示横着走， res>0表示垂直走
+            if(res1>0){
+
+            if (canCrossBoundary(currentCellId)&canCrossBoundary2(targetCellId)){
+            moveCharacterTo(x, y);
+            character.setAttribute('data-current-cell', targetCellId);
+            }
+              else{
+                alert("无法进行该移动");
+                bounceCharacter(3, 600); // 碰撞时弹跳三次，每次弹跳600毫秒
+              }
+            }else{
+              moveCharacterTo(x, y);
+             character.setAttribute('data-current-cell', targetCellId);
+            }
+            }
+            finalMove()
+         };
+        
+
+  function bounceCharacter(times, duration) {
+  let count = 0;
+  let interval = setInterval(() => {
+    if (count >= times) {
+      clearInterval(interval); // 达到弹跳次数后停止
+      character.classList.remove('jumping'); // 移除弹跳类
+    } else {
+      character.classList.add('jumping'); // 添加弹跳类
+      setTimeout(() => character.classList.remove('jumping'), duration / 2); // 半途移除弹跳类以完成一次弹跳
+    }
+    count++;
+  }, duration);
+}
+
+     // 为每个格子添加点击事件监听
+     document.querySelectorAll('[id^="B_"]').forEach(function(cell) {
+         cell.addEventListener('click', handleCharacterMove);
+     });
+
+     // 计算并更新角色位置
+     function moveCharacterTo(x, y, callback) {
+         // 定义起始和结束坐标
+         var startX = parseInt(character.style.left, 10) || 0;
+         var startY = parseInt(character.style.top, 10) || 0;
+         var endX = x;
+         var endY = y;
+
+         // 计算每一段的位移
+         var deltaX = (endX - startX) / 7;
+         var deltaY = (endY - startY) / 7;
+
+         // 以七个阶段移动和跳动角色
+         for (let i = 1; i <= 7; i++) {
+             setTimeout(function() {
+                 var nextX = startX + deltaX * i;
+                 var nextY = startY + deltaY * i;
+                 character.style.left = nextX + 'px';
+                 character.style.top = nextY + 'px';
+                 character.classList.add('jumping'); // 开始跳动
+             }, i * 1000); // 调整每段的延迟时间
+
+             // 在下一次跳动开始之前移除跳动类
+             setTimeout(function() {
+                 character.classList.remove('jumping'); // 结束跳动
+             }, i * 1000 + 600);
+         }
+
+         // 在整个移动过程结束后执行回调函数
+         setTimeout(function() {
+             if (callback) {
+                 callback();
+             }
+         }, 7 * 1000 + 600);
+     }
+
+
+     function checkCollision(x, y) {
+     var blockers = document.querySelectorAll('.blocker');
+     for (var i = 0; i < blockers.length; i++) {
+         var blockerRect = blockers[i].getBoundingClientRect();
+         if (y > blockerRect.bottom - 10 && y < blockerRect.bottom + 10) {
+             return true;
+         }
+     }
+     return false;
+ }
+ });
+
+
+//增加传送门
+// 获取需要监视点击事件的<div>元素
+var B_Pass = document.getElementById("B_Pass");
+var B_G = document.getElementById("B_G");
+// 添加点击事件处理程序
+B_Pass.addEventListener("click", function(event) {
+    // 获取鼠标点击事件的坐标
+    var startX = parseInt(character.style.left, 10) || 0;
+    var startY = parseInt(character.style.top, 10) || 0;
+    var endX = B_G.getBoundingClientRect().left + B_G.offsetWidth / 2; // 获取 B_G 元素的中心 X 坐标
+    var endY = B_G.getBoundingClientRect().top + B_G.offsetHeight / 2;   // 获取 B_G 元素的中心 Y 坐标
+
+
+    // Divide the path into seven segments
+    var deltaX = (endX - startX) / 7;
+    var deltaY = (endY - startY) / 7;
+
+    // Move and jump in seven segments
+    for (let i = 1; i <= 7; i++) {
+        setTimeout(function() {
+            character.style.left = startX + deltaX * i + 'px';
+            character.style.top = startY + deltaY * i + 'px';
+            character.classList.add('jumping');
+        }, i * 0.01); // Delay for each segment
+
+        // Remove the jumping class after each jump
+        setTimeout(function() {
+            character.classList.remove('jumping');
+        }, i * 500 + 600);
+    }
+
+    // 创建弹窗显示坐标信息
+    var message = "恭喜你触发了传送门(*≧ω≦)！";
+    alert(message);
+});
+
 </script>
 
 </body>
