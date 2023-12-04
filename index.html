@@ -10,6 +10,13 @@
       height: 100%;
       overflow: hidden;
     }
+        /*适应手机屏幕*/
+    @media (max-width: 768px) {
+      .image-container img {
+        max-width: 100%; /* 图片最大宽度为100%，以适应屏幕宽度 */
+        max-height: 50%; /* 图片最大高度调整为屏幕高度的一半 */
+      }
+    }
     
     #card {
         display: none; /* Default to not displayed */
