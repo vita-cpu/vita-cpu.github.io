@@ -8,7 +8,7 @@
     body, html {
       margin: 0;
       height: 100%;
-      overflow: hidden;
+      overflow: auto;
     }
 
     #card {
@@ -42,11 +42,6 @@
       background-size: contain; */
     }
 
-    @media screen and (max-width: 600px) {
-      .image-container img {
-        transform: scale(5); /* 将图片放大5倍 */
-      }
-    }
 
     @keyframes rotateCard {
       0% {
@@ -70,7 +65,7 @@
 
     @keyframes jump {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5%); } /* Increased jump height */
+      50% { transform: translateY(-30%); } /* Increased jump height */
     }
 
     .jumping {
@@ -78,23 +73,24 @@
     }
 
     .image-container {
-      /* left:10%; */
-      padding-left: 20%;
-      padding-top: 10%;
-      width: 60%; /* 设置div的宽度为100% */
-      height: 60%; /* 设置div的高度为视口的高度，以充满屏幕 */
+      /* padding-left: 10%; */
+      width: 100%; /* 设置宽度为100% */
+      height: auto; /* 高度自动调整 */
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden; /*隐藏溢出的部分*/
+      overflow: auto; /* 允许滚动 */
     }
 
     .image-container img {
       max-width: 100%; /* 图片最大宽度为100% */
-      max-height: 100%; /* 图片最大高度为100% */
-      width: auto; /* 自动调整宽度 */
-      height: auto; /*自动调整高度*/
+      height: auto; /* 高度自动调整 */
     }
+
+
+
+
+
 
   </style>
 </head>
@@ -105,9 +101,9 @@
 <div class="image-container" id="image_container">
   <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E9%99%8D%E8%90%BD%E4%BC%9E-%E6%A9%99.png?raw=true" alt="Character Icon"
        class="character" id="character" style="width: 2%; z-index:1;">
-  <div style="position: relative;">
+  <div style="position: relative;" id="whole_map">
     <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E6%A3%8B%E7%9B%98%E6%9B%B4%E6%96%B0_00.png?raw=true" alt="Your Image">
-    <div style="position:absolute;left:2%;top:3.3%;width:96%;height: 82.3%;" id="block">
+    <div style="position:absolute;left:2%;top:3.3%;width:96%;height: 82.7%;" id="block">
       <!-- 这里是说明格子 -->
       <div style="position:absolute;left:0%;top:0%;width:12.5%;height: 60%;" id="instruction">
       </div>
@@ -377,52 +373,38 @@
 
     // 计算并更新角色位置
 
-    function moveCharacterTo(x, y, targetCellId,callback) {
-      // if(['B_Pass', 'B_Pass3'].includes(targetCellId)){
-      //   character.style.display='none';
-      //  character.style.left = x + 'px';
-      //  character.style.top = y + 'px';
-      //  character.classList.add('jumping');
-      //  setTimeout(function() {
-      //      character.classList.remove('jumping');
-      //      character.style.display='block';
-      //      if (callback) {
-      //          callback();
-      //      }
-      //  }, 1);
-      //  return;
-      // }
+    function moveCharacterTo(x, y, targetCellId, callback) {
       var startX = parseInt(character.style.left, 10) || 0;
       var startY = parseInt(character.style.top, 10) || 0;
       var endX = x;
       var endY = y;
 
-      // 计算每一段的位移
+      // Calculate the displacement for each step
       var deltaX = (endX - startX) / 7;
       var deltaY = (endY - startY) / 7;
 
-      //  character.style.left = x + 'px';
-      //  character.style.top = y + 'px';
-      character.classList.add('jumping');
+      // Perform a small jump with each step
       for (let i = 1; i <= 7; i++) {
         setTimeout(function() {
           var nextX = startX + deltaX * i;
           var nextY = startY + deltaY * i;
           character.style.left = nextX + 'px';
           character.style.top = nextY + 'px';
-          character.classList.add('jumping'); // 开始跳动
-        }, i * 600); // 调整每段的延迟时间
+          character.classList.add('jumping'); // Start the small jump
+        }, i * 600); // Adjust the delay for each step
         setTimeout(function() {
-          character.classList.remove('jumping');
-        }, 1);
+          character.classList.remove('jumping'); // End the small jump
+        }, i * 600 + 300); // Adjust the duration for each jump
       }
+
+      // Callback function after completing the movement
       setTimeout(function() {
-        character.classList.remove('jumping');
         if (callback) {
           callback();
         }
-      }, 5000);
-    };
+      },  6000);
+    }
+
 
     function moveCharacterTo2(x, y, targetCellId,callback) {
       character.style.display='none';
@@ -439,8 +421,97 @@
     };
 
 
-  });
 
+    
+function positionCharacterInBStart() {
+    // 获取元素
+    var character = document.getElementById('character');
+    var bStart = document.getElementById('B_Start');
+
+    // 确保两个元素都存在
+    if (character && bStart) {
+      
+        var bStartRect = bStart.getBoundingClientRect();
+
+        // 计算B_Start的中心位置
+        var centerX = bStartRect.left + (bStartRect.width / 2);
+        var centerY = bStartRect.top + (bStartRect.height / 2);
+
+        // 设置character的样式
+        character.style.position = 'absolute';
+        character.style.left = centerX - (character.offsetWidth / 2) + 'px';
+        character.style.top = centerY - (character.offsetHeight / 2) + 'px';
+    }
+}
+
+// // 1. 在页面加载时执行
+// document.addEventListener('DOMContentLoaded', function() {
+//     // 2. 获取浏览器窗口大小
+//     var browserWidth = window.innerWidth;
+//     var browserHeight = window.innerHeight;
+
+//     // 3. 获取 'whole_map' 元素的大小和位置
+//     var map = document.getElementById('whole_map');
+//     if (map) {
+//         var rect = map.getBoundingClientRect();
+
+//         // 4. 计算缩放比例
+//         var scaleX = browserWidth / rect.width;
+//         var scaleY = browserHeight / rect.height;
+//         var scale = Math.min(scaleX, scaleY);
+
+//         // 5. 设置 'whole_map' 元素的缩放和位置
+//         map.style.transformOrigin = 'top left';
+//         map.style.transform = `scale(${scale})`;
+//         map.style.position = 'absolute';
+//         map.style.left = -rect.left + 'px';
+//         map.style.top = -rect.top + 'px';
+//     }
+
+
+// });
+
+// document.addEventListener('DOMContentLoaded', function() {
+    
+// });
+
+window.onload = function() {
+
+      // 2. 获取浏览器窗口大小
+    var browserWidth = window.innerWidth;
+    var browserHeight = window.innerHeight;
+
+    // 3. 获取 'whole_map' 元素的大小和位置
+    var map = document.getElementById('whole_map');
+    
+    var character = document.getElementById('character');
+    if (map) {
+        var rect = map.getBoundingClientRect();
+
+        // 4. 计算缩放比例
+        var scaleX = 3000 / rect.width;
+        var scaleY = 2165.5 / rect.height;
+        var scale = Math.min(scaleX, scaleY);
+
+        // 5. 设置 'whole_map' 元素的缩放和位置
+        map.style.transformOrigin = 'top left';
+        map.style.transform = `scale(${scale})`;
+        map.style.position = 'absolute';
+        map.style.left = -rect.left + 'px';
+        map.style.top = -rect.top + 'px';
+
+        
+        character.style.transformOrigin = 'top left';
+        character.style.transform = `scale(${scale})`;
+        character.style.position = 'absolute';
+    }
+        positionCharacterInBStart();
+
+
+
+  };
+
+  });
 </script>
 
 </body>
