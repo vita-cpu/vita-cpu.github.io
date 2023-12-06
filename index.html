@@ -65,7 +65,7 @@
     }
     #startButton div {
       background: var(--background);
-      padding: 2.4em 1.8em;
+      padding: 2.5em 1.8em;
       border-radius: calc(var(--border-radius) - var(--border-size));
       color: var(--foreground);
     }
@@ -223,7 +223,6 @@
       </div>
       <!-- B表示Block格子，B_Start表示 Start 这个格子；同理 B_O表示字母为O的格子 -->
       <div style="position:absolute;left:28.57%;top:0%;width:14.29%;height:17.5%;" id="B_Start">
-        
         <!-- # 修改3: 调整每个button，你可以仿照START这样去写。一般来说直接把文本放在button里面就行，不用另开div  -->
         <button id="startButton" class="flowing-light-effect" style="position: absolute; left: 50%; top: 84%; width: 80%; height: 24%;transform: translate(-50%, -50%);">
             <div>
@@ -435,11 +434,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         if (targetCellId=="B_Pass3"){
           alert("恭喜你打开传送门！向前前进两格")
-          var B_J = document.getElementById("B_J");
+          var B_Y = document.getElementById("B_Y");
 
-          var x = B_J.getBoundingClientRect().left + window.scrollX + (B_J.getBoundingClientRect().width - character.offsetWidth) / 2;
-          var y = B_J.getBoundingClientRect().top + window.scrollY + (B_J.getBoundingClientRect().height - character.offsetHeight) / 2;
-          character.setAttribute('data-current-cell', "B_J");
+          var x = B_Y.getBoundingClientRect().left + window.scrollX + (B_Y.getBoundingClientRect().width - character.offsetWidth) / 2;
+          var y = B_Y.getBoundingClientRect().top + window.scrollY + (B_Y.getBoundingClientRect().height - character.offsetHeight) / 2;
+          character.setAttribute('data-current-cell', "B_Y");
           moveCharacterTo2(x, y,targetCellId);
         }
       }
