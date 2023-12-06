@@ -29,7 +29,7 @@
     }
     :root {
       --white: #fff;
-      --background: black;
+      --background: #191816;
       --foreground: white;
       --border-size: 1px;
       --border-radius: .75em;
@@ -108,6 +108,44 @@
       color: var(--foreground);
       font-size: 0.6em;
     }
+    /*按钮的特效更新*/
+    /* 保留您之前定义的属性和动画 */
+    /* ...您的现有 CSS代码... */
+
+    /* B_End更新按钮样式以包含特效 */
+
+    #B_End button {
+      position: absolute;
+      left: 50%;
+      top: 40%;
+      transform: translate(-50%, -50%);
+      width: 100%; /* 调整宽度以适应 div */
+      height: 100%; /* 调整高度以适应 div */
+      border: 0;
+      padding: var(--border-size);
+      border-radius: var(--border-radius);
+      background-color: transparent;
+      background-image: conic-gradient(from var(--border-angle-1) at center, transparent, var(--white) 10%, transparent 30%, transparent),
+      conic-gradient(from var(--border-angle-2) at center, transparent, var(--white) 10%, transparent 60%, transparent),
+      conic-gradient(from var(--border-angle-3) at center, transparent, var(--white) 10%, transparent 50%, transparent);
+      background-size: 100% 100%; /* 缩小特效框 */
+      background-position: center; /* 特效框居中 */
+      animation: rotateBackground 3s linear infinite,
+      rotateBackground2 8s linear infinite,
+      rotateBackground3 13s linear infinite;
+    }
+
+    #B_End button img {
+      width: 50%; /* 或者根据您的需求调整 */
+      height: 50%; /* 或者根据您的需求调整 */
+      position: relative;
+      top: 50%; /* 将图片居中 */
+      left: 50%; /* 将图片居中 */
+      transform: translate(-50%, -50%);
+    }
+
+
+
 
     /*!*V13解决屏幕水平滑动的新特效*!*/
     /*#grid-container {*/
@@ -324,8 +362,12 @@
       </div>
       <div style="position:absolute;left:71.43%;top:73%;width:14.2%;height: 18.5%;" id="B_Z">
       </div>
-      <div style="position:absolute;left:85.71%;top:73%;width:14.2%;height: 18.5%;" id="B_End">
+      <div style="position: absolute; left: 85.71%; top: 73%; width: 14.2%; height: 18.5%;" id="B_End">
+        <button id="imageButton" style="width: 59%; height: 62%;">
+          <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E8%A9%9E%E6%A2%9D/end_icon.png?raw=true" alt="Button Image" style="width: 99%; height: 99.5%; position: relative; top: 50%; left: 50%;">
+        </button>
       </div>
+
       <!--x 第5行的格子结束 x-->
 
     </div>
@@ -340,26 +382,39 @@ document.addEventListener('DOMContentLoaded', function () {
   var cardImage = card.querySelector('img'); // 获取 card 中的图片元素
 
   // 显示带有指定图片的卡片的函数
-  function showCardWithImage(imageUrl) {
+  function showCardWithImage(imageUrl,now_ID) {
+    button=document.getElementById(now_ID)
     cardImage.src = imageUrl; // 设置图片源
+    var centerX = window.scrollX+window.innerWidth / 2; 
+    var centerY = window.scrollY + (window.innerHeight / 2); 
+    /* card.style.left = button.left + 'px';
+    card.style.top = button.top + 'px'; */
+    card.style.left = centerX+button.offsetLeft + 'px';
+    card.style.top = card.height/2+button.offsetTop + 'px';
+    card.style.width = "80%";
     card.style.display = 'block'; // 显示卡片
     card.style.animation = 'rotateCard 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards'; // 应用动画
+
+
   }
+
 
   // 绑定到 B_Start 按钮的事件监听器
   document.getElementById('startButton').addEventListener('click', function() {
-    showCardWithImage('https://github.com/vita-cpu/Pradaproject/blob/main/Start.png?raw=true');
+    showCardWithImage('https://github.com/vita-cpu/Pradaproject/blob/main/Start.png?raw=true','startButton');
   });
-  card.style.top = '50vh';
-  card.style.left = '50vw';
+
 
   // 绑定到 B_Q 格子里的按钮的事件监听器
   document.getElementById('button_Q').addEventListener('click', function() {
-    showCardWithImage('https://github.com/vita-cpu/Pradaproject/blob/main/%E8%A9%9E%E6%A2%9D/%E8%AF%8D%E6%9D%A1-Q.png?raw=true');
+    showCardWithImage('https://github.com/vita-cpu/Pradaproject/blob/main/%E8%A9%9E%E6%A2%9D/%E8%AF%8D%E6%9D%A1-Q.png?raw=true','startButton');
   });
-  card.style.top = '50vh';
-  card.style.left = '50vw';
 
+
+  // 添加用于 B_End 按钮的事件监听器
+  document.getElementById('imageButton').addEventListener('click', function() {
+    showCardWithImage('https://github.com/vita-cpu/Pradaproject/blob/main/End.png?raw=true','B_End');
+  });
   // 点击卡片时隐藏卡片并移除动画的事件监听器
   document.getElementById('card').addEventListener('click', function() {
     card.style.display = 'none';
@@ -672,10 +727,34 @@ window.onload = function() {
     }
         positionCharacterInBStart();
 
-  };
+        setTimeout(() => {
 
+        var bStartRect = document.getElementById("B_Start");
+        bStartRect.scrollIntoView()
+        /* window.resizeTo(map.style.width,map.style.height) */
+        alert(window.innerWidth)
+        },1000);
+
+  };
   });
 
+
+// 显示带有指定图片的卡片的函数
+function showCardWithImage(imageUrl,now_ID) {
+  button=document.getElementById(now_ID)
+  cardImage.src = imageUrl; // 设置图片源
+  var centerX = window.scrollX+window.innerWidth / 2;
+  var centerY = window.scrollY + (window.innerHeight / 2);
+  /* card.style.left = button.left + 'px';
+    card.style.top = button.top + 'px'; */
+  card.style.left = centerX+button.offsetLeft + 'px';
+  card.style.top = card.height/2+button.offsetTop + 'px';
+  card.style.width = "80%";
+  card.style.display = 'block'; // 显示卡片
+  card.style.animation = 'rotateCard 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards'; // 应用动画
+
+
+}
 // //V11新增滑动特效
 // document.addEventListener('click', function(event) {
 //   var character = document.getElementById('character'); // 获取ID为'character'的元素
