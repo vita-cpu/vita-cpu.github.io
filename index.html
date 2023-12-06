@@ -95,7 +95,7 @@
 
     #B_O div, #B_C div {
       background: #79C38E; /* 设置为十六进制颜色 #79C38E */
-      padding: 1em 1em;
+      padding: 2.5em 1.5em;
       border-radius: calc(var(--border-radius) - var(--border-size));
       color: var(--foreground);
       font-size: 0.6em;
@@ -103,7 +103,7 @@
 
     #B_Q div {
       background: var(--background); /* B_Q 保持原有的背景色 */
-      padding: 1em 1em;
+      padding: 2.5em 1.5em;
       border-radius: calc(var(--border-radius) - var(--border-size));
       color: var(--foreground);
       font-size: 0.6em;
@@ -123,7 +123,7 @@
       position: fixed;
       top: 30vh;
       left: 45vw;
-      transform: translate(-50%, -50%)scale(0.5);
+      transform: translate(-50%, -50%)scale(0.9);
       z-index: 1000; /* Make sure this is higher than other elements */
       background-color: white;
       border: 1px solid black;
@@ -136,6 +136,7 @@
       animation: rotateCard 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; /* 使用 cubic-bezier 函数 */
       justify-content: center;
       align-items: center;
+      text-align: center;
       /* width: 30vw;height: 90vh; justify-content: center;align-items: center; */
     }
     #card img {
@@ -234,20 +235,20 @@
 
 
       <div style="position:absolute;left:42.86%;top:0%;width:14.29%;height:17.5%;" id="B_O">
-        <button id="button_O" class="flowing-light-effect" style="position: absolute; left: 50%; top: 89%; transform: translate(-50%, -50%); width: 90%; height: 12%;">
+        <button id="button_O" class="flowing-light-effect" style="position: absolute; left: 50%; top: 89%; transform: translate(-50%, -50%); width: 90%; height: 18%;">
           <div>奥斯曼帝国在意大利败退,PRADA正式在米兰创立。<br>
             🔍检索PRADA PEDIA -ORIGINS</div>
       </div>
       <div style="position:absolute;left:57.14%;top:0%;width:14.29%;height:17.5%;" id="B_Q">
         <!-- B_Q button -->
-        <button id="button_Q" class="flowing-light-effect" style="position: absolute; left: 50%; top: 89%; transform: translate(-50%, -50%); width: 90%; height: 12%;">
+        <button id="button_Q" class="flowing-light-effect" style="position: absolute; left: 50%; top: 89%; transform: translate(-50%, -50%); width: 90%; height: 18%;">
           <div>标志上徽章和绳结象征当时意大利的哪个王朝?<br>
             🔍检索PRADA PEDIA - QUALITY</div>
         </button>
       </div>
       <div style="position:absolute;left:71.43%;top:0%;width:14.29%;height:17.5%;" id="B_C">
         <!-- B_C button -->
-        <button id="button_C" class="flowing-light-effect" style="position: absolute; left: 50%; top: 89%; transform: translate(-50%, -50%); width: 90%; height: 12%;">
+        <button id="button_C" class="flowing-light-effect" style="position: absolute; left: 50%; top: 89%; transform: translate(-50%, -50%); width: 90%; height: 18%;">
           <div>坐上PRADA列车好奇心爆棚前往你想到达的任意字母格<br>
             🔍检索 PRADAPEDIA - CURIOSITY</div>
         </button>
@@ -349,11 +350,15 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('startButton').addEventListener('click', function() {
     showCardWithImage('https://github.com/vita-cpu/Pradaproject/blob/main/Start.png?raw=true');
   });
+  card.style.top = '50vh';
+  card.style.left = '50vw';
 
   // 绑定到 B_Q 格子里的按钮的事件监听器
   document.getElementById('button_Q').addEventListener('click', function() {
     showCardWithImage('https://github.com/vita-cpu/Pradaproject/blob/main/%E8%A9%9E%E6%A2%9D/%E8%AF%8D%E6%9D%A1-Q.png?raw=true');
   });
+  card.style.top = '50vh';
+  card.style.left = '50vw';
 
   // 点击卡片时隐藏卡片并移除动画的事件监听器
   document.getElementById('card').addEventListener('click', function() {
