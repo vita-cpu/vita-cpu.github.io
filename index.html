@@ -11,26 +11,136 @@
       overflow: auto;
     }
 
-    #card {
+/*开始格子按钮的特效*/
+     @property --border-angle-1 {
+      syntax: "<angle>";
+      inherits: true;
+      initial-value: 0deg;
+    }
+    @property --border-angle-2 {
+      syntax: "<angle>";
+      inherits: true;
+      initial-value: 90deg;
+    }
+    @property --border-angle-3 {
+      syntax: "<angle>";
+      inherits: true;
+      initial-value: 180deg;
+    }
+    :root {
+      --white: #fff;
+      --background: black;
+      --foreground: white;
+      --border-size: 1px;
+      --border-radius: .75em;
+    }
+    @keyframes rotateBackground {
+      to { --border-angle-1: 360deg; }
+    }
+    @keyframes rotateBackground2 {
+      to { --border-angle-2: -270deg; }
+    }
+    @keyframes rotateBackground3 {
+      to { --border-angle-3: 540deg; }
+    }
+    #startButton {
+      position: absolute;
+      left: 50%;
+      top: 80%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 26%;
+      color: inherit;
+      font-family: inherit;
+      border: 0;
+      padding: var(--border-size);
+      border-radius: var(--border-radius);
+      background-color: transparent;
+      background-image: conic-gradient(from var(--border-angle-1) at 10% 15%, transparent, var(--white) 10%, transparent 30%, transparent),
+      conic-gradient(from var(--border-angle-2) at 70% 60%, transparent, var(--white) 10%, transparent 60%, transparent),
+      conic-gradient(from var(--border-angle-3) at 50% 20%, transparent, var(--white) 10%, transparent 50%, transparent);
+      animation: rotateBackground 3s linear infinite,
+      rotateBackground2 8s linear infinite,
+      rotateBackground3 13s linear infinite;
+    }
+    #startButton div {
+      background: var(--background);
+      padding: 2.4em 1.8em;
+      border-radius: calc(var(--border-radius) - var(--border-size));
+      color: var(--foreground);
+    }
+
+    /* 保留原有关键帧动画定义 */
+
+    #B_O button, #B_Q button, #B_C button {
+      position: absolute;
+      left: 50%;
+      top: 87%;
+      transform: translate(-50%, -50%);
+      width: 90%; /* 确保与特效框宽度一致 */
+      height: 26%; /* 确保与特效框高度一致 */
+      color: inherit;
+      font-family: inherit;
+      border: 0;
+      padding: var(--border-size);
+      border-radius: var(--border-radius);
+      background-color: transparent;
+      background-image: conic-gradient(from var(--border-angle-1) at 10% 15%, transparent, var(--white) 10%, transparent 30%, transparent),
+      conic-gradient(from var(--border-angle-2) at 70% 60%, transparent, var(--white) 10%, transparent 60%, transparent),
+      conic-gradient(from var(--border-angle-3) at 50% 20%, transparent, var(--white) 10%, transparent 50%, transparent);
+      animation: rotateBackground 3s linear infinite,
+      rotateBackground2 8s linear infinite,
+      rotateBackground3 13s linear infinite;
+    }
+
+    #B_O div, #B_C div {
+      background: #79C38E; /* 设置为十六进制颜色 #79C38E */
+      padding: 1em 1em;
+      border-radius: calc(var(--border-radius) - var(--border-size));
+      color: var(--foreground);
+      font-size: 0.6em;
+    }
+
+    #B_Q div {
+      background: var(--background); /* B_Q 保持原有的背景色 */
+      padding: 1em 1em;
+      border-radius: calc(var(--border-radius) - var(--border-size));
+      color: var(--foreground);
+      font-size: 0.6em;
+    }
+
+    /*!*V13解决屏幕水平滑动的新特效*!*/
+    /*#grid-container {*/
+    /*  position: absolute;*/
+    /*  transition: transform 0.3s ease; // Smooth transition for movement*/
+    /*}*/
+
+
+/*这里开始是卡片*/ 
+/*修改4: 更改card的位置、比例，最好能把百分比和数字相关的内容，用vw vh设置，比如top, left, width, height这些。*/    
+#card {
       display: none; /* Default to not displayed */
       position: fixed;
-      top: 50%;
-      left: 50%;
+      top: 30vh;
+      left: 45vw;
       transform: translate(-50%, -50%)scale(0.5);
       z-index: 1000; /* Make sure this is higher than other elements */
       background-color: white;
       border: 1px solid black;
-      padding: 20px;
-      width: auto; /* Adjust as necessary */
+      padding: 0px;
+      width: 30vw; /* Adjust as necessary */
       height: auto; /* Adjust as necessary */
-      max-width: 80%; /* Prevent the image from being too large */
-      max-height: 80%; /* Prevent the image from being too large */
+      max-width: 80vw; /* Prevent the image from being too large */
+      max-height: auto; /* Prevent the image from being too large */
       overflow: hidden; /* Hide the overflow */
       animation: rotateCard 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; /* 使用 cubic-bezier 函数 */
+      justify-content: center;
+      align-items: center;
+      /* width: 30vw;height: 90vh; justify-content: center;align-items: center; */
     }
     #card img {
       width: 100%; /* Adjust the image to the container width */
-      height: auto; /* Adjust the image height automatically */
+      height: 100%; /* Adjust the image height automatically */
     }
     #game-board {
       position: relative;
@@ -95,134 +205,164 @@
   </style>
 </head>
 <body>
-<div id="card">
-  <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E5%8D%A1%E7%89%87.png?raw=true'" alt="Displayed Image" /> <!-- 示例图片，您可以替换为您希望显示的图片 -->
-</div>
+
 <div class="image-container" id="image_container">
   <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E9%99%8D%E8%90%BD%E4%BC%9E-%E6%A9%99.png?raw=true" alt="Character Icon"
-       class="character" id="character" style="width: 2%; z-index:1;">
-  <div style="position: relative;" id="whole_map">
-    <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E6%A3%8B%E7%9B%98%E6%9B%B4%E6%96%B0_00.png?raw=true" alt="Your Image">
-    <div style="position:absolute;left:2%;top:3.3%;width:96%;height: 82.7%;" id="block">
-      <!-- 这里是说明格子 -->
-      <div style="position:absolute;left:0%;top:0%;width:12.5%;height: 60%;" id="instruction">
-      </div>
-      <!--x 说明格子结束 x-->
+       class="character" id="character" style="width: 20vw; height:auto; z-index:1;">
 
+  <div style="position: relative;width:700vw;height: 250vh;" id="whole_map">
+    <div id="card">
+      <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E5%8D%A1%E7%89%87.png?raw=true'" alt="Displayed Image" /> <!-- 示例图片，您可以替换为您希望显示的图片 -->
+    </div>
+    <!-- 修改1: 替换最新的地图 -->
+    <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E8%AA%8C%E5%B1%8Bvol39_prada%E6%A3%8B%E7%9B%98.jpg?raw=true" alt="Your Image"> 
+    <!-- # 修改2: 更改"left:2%;top:3.3%;width:96%;height: 82.7%;"这一堆数值，让它能完整切割整体格子 -->
+    <div style="position:absolute;left:0%;top:0%;width:100%;height: 100%;" id="block">
       <!-- 这里开始是第1行的格子 -->
-      <div style="position:absolute;left:12.5%;top:0%;width:25%;height: 20%;" id="logo">
+      <div style="position:absolute;left:0%;top:0%;width:28.57%;height:17.5%;" id="logo">
       </div>
       <!-- B表示Block格子，B_Start表示 Start 这个格子；同理 B_O表示字母为O的格子 -->
-      <div style="position:absolute;left:37.5%;top:0%;width:12.5%;height: 20%;" id="B_Start">
+      <div style="position:absolute;left:28.57%;top:0%;width:14.29%;height:17.5%;" id="B_Start">
+        
+        <!-- # 修改3: 调整每个button，你可以仿照START这样去写。一般来说直接把文本放在button里面就行，不用另开div  -->
+        <button id="startButton" class="flowing-light-effect" style="position: absolute; left: 50%; top: 84%; width: 80%; height: 24%;transform: translate(-50%, -50%);">
+            <div>
+                START
+            </div>
+        </button>
+
       </div>
 
-      <div style="position:absolute;left:50%;top:0%;width:12.5%;height: 20%;" id="B_O">
+
+      <div style="position:absolute;left:42.86%;top:0%;width:14.29%;height:17.5%;" id="B_O">
+        <button id="button_O" class="flowing-light-effect" style="position: absolute; left: 50%; top: 89%; transform: translate(-50%, -50%); width: 90%; height: 12%;">
+          <div>奥斯曼帝国在意大利败退,PRADA正式在米兰创立。<br>
+            🔍检索PRADA PEDIA -ORIGINS</div>
       </div>
-      <div style="position:absolute;left:62.5%;top:0%;width:12.5%;height: 20%;" id="B_Q">
+      <div style="position:absolute;left:57.14%;top:0%;width:14.29%;height:17.5%;" id="B_Q">
+        <!-- B_Q button -->
+        <button id="button_Q" class="flowing-light-effect" style="position: absolute; left: 50%; top: 89%; transform: translate(-50%, -50%); width: 90%; height: 12%;">
+          <div>标志上徽章和绳结象征当时意大利的哪个王朝?<br>
+            🔍检索PRADA PEDIA - QUALITY</div>
+        </button>
       </div>
-      <div style="position:absolute;left:75%;top:0%;width:12.5%;height: 20%;" id="B_C">
+      <div style="position:absolute;left:71.43%;top:0%;width:14.29%;height:17.5%;" id="B_C">
+        <!-- B_C button -->
+        <button id="button_C" class="flowing-light-effect" style="position: absolute; left: 50%; top: 89%; transform: translate(-50%, -50%); width: 90%; height: 12%;">
+          <div>坐上PRADA列车好奇心爆棚前往你想到达的任意字母格<br>
+            🔍检索 PRADAPEDIA - CURIOSITY</div>
+        </button>
       </div>
-      <div style="position:absolute;left:87.5%;top:0%;width:12.5%;height: 20%;" id="B_Pass">
+      <div style="position:absolute;left:85.71%;top:0%;width:14.29%;height:17.5%;" id="B_Pass">
       </div>
       <!--x 第1行的格子结束 x-->
 
 
       <!-- 这里开始是第2行的格子 -->
-      <div style="position:absolute;left:12.5%;top:20%;width:12.5%;height: 20%;" id="B_K">
+      <div style="position:absolute;left:0%;top:17.5%;width:14.29%;height:18.5%;" id="B_K">
       </div>
-      <div style="position:absolute;left:25%;top:20%;width:12.5%;height: 20%;" id="B_X">
+      <div style="position:absolute;left:14.29%;top:17.5%;width:14.29%;height: 18.5%;" id="B_X">
       </div>
-      <div style="position:absolute;left:37.5%;top:20%;width:12.5%;height: 20%;" id="B_W">
+      <div style="position:absolute;left:28.57%;top:17.5%;width:14.29%;height: 18.5%;" id="B_W">
       </div>
-      <div style="position:absolute;left:50%;top:20%;width:12.5%;height: 20%;" id="B_Pass2">
+      <div style="position:absolute;left:42.86%;top:17.5%;width:14.29%;height: 18.5%;" id="B_Pass2">
       </div>
-      <div style="position:absolute;left:62.5%;top:20%;width:12.5%;height: 20%;" id="B_N">
+      <div style="position:absolute;left:57.14%;top:17.5%;width:14.29%;height: 18.5%;" id="B_N">
       </div>
-      <div style="position:absolute;left:75%;top:20%;width:12.5%;height: 20%;" id="B_I">
+      <div style="position:absolute;left:71.43%;top:17.5%;width:14.29%;height: 18.5%;" id="B_I">
       </div>
-      <div style="position:absolute;left:87.5%;top:20%;width:12.5%;height: 20%;" id="B_G">
+      <div style="position:absolute;left:85.71%;top:17.5%;width:14.29%;height: 18.5%;" id="B_G">
       </div>
       <!--x 第2行的格子结束 x-->
 
       <!-- 这里开始是第3行的格子 -->
-      <div style="position:absolute;left:12.5%;top:40%;width:12.5%;height: 20%;" id="B_Pass3">
+      <div style="position:absolute;left:0%;top:36%;width:14.29%;height: 18.5%;" id="B_Pass3">
       </div>
-      <div style="position:absolute;left:25%;top:40%;width:12.5%;height: 20%;" id="B_Y">
+      <div style="position:absolute;left:14.29%;top:36%;width:14.29%;height: 18.5%;" id="B_J">
       </div>
-      <div style="position:absolute;left:37.5%;top:40%;width:12.5%;height: 20%;" id="B_J">
+      <div style="position:absolute;left:28.57%;top:36%;width:14.29%;height: 18.5%;" id="B_Y">
       </div>
-      <div style="position:absolute;left:50%;top:40%;width:12.5%;height: 20%;" id="B_E">
+      <div style="position:absolute;left:42.86%;top:36%;width:14.29%;height: 18.5%;" id="B_E">
       </div>
-      <div style="position:absolute;left:62.5%;top:40%;width:12.5%;height: 20%;" id="B_Choose3">
+      <div style="position:absolute;left:57.14%;top:36%;width:14.29%;height: 18.5%;" id="B_Choose3">
       </div>
-      <div style="position:absolute;left:75%;top:40%;width:12.5%;height: 20%;" id="B_F">
+      <div style="position:absolute;left:71.43%;top:36%;width:14.29%;height: 18.5%;" id="B_F">
       </div>
-      <div style="position:absolute;left:87.5%;top:40%;width:12.5%;height: 20%;" id="B_S">
+      <div style="position:absolute;left:85.71%;top:36%;width:14.29%;height: 18.5%;" id="B_S">
       </div>
       <!--x 第3行的格子结束 x-->
 
       <!-- 这里开始是第4行的格子 -->
-      <div style="position:absolute;left:0%;top:60%;width:12.5%;height: 20%;" id="B_U">
+      <div style="position:absolute;left:0%;top:54.5%;width:14.29%;height: 18.5%;" id="B_U">
       </div>
-      <div style="position:absolute;left:12.5%;top:60%;width:12.5%;height: 20%;" id="B_L">
+      <div style="position:absolute;left:14.29%;top:54.5%;width:14.29%;height: 18.5%;" id="B_L">
       </div>
-      <div style="position:absolute;left:25%;top:60%;width:12.5%;height: 20%;" id="B_Choose4">
+      <div style="position:absolute;left:28.57%;top:54.5%;width:14.29%;height: 18.5%;" id="B_Choose4">
       </div>
-      <div style="position:absolute;left:37.5%;top:60%;width:12.5%;height: 20%;" id="B_V">
+      <div style="position:absolute;left:42.86%;top:54.5%;width:14.29%;height: 18.5%;" id="B_V">
       </div>
-      <div style="position:absolute;left:50%;top:60%;width:12.5%;height: 20%;" id="B_P">
+      <div style="position:absolute;left:57.14%;top:54.5%;width:14.29%;height: 18.5%;" id="B_P">
       </div>
-      <div style="position:absolute;left:62.5%;top:60%;width:12.5%;height: 20%;" id="B_A">
+      <div style="position:absolute;left:71.43%;top:54.5%;width:14.29%;height: 18.5%;" id="B_A">
       </div>
-      <div style="position:absolute;left:75%;top:60%;width:12.5%;height: 20%;" id="B_R">
-      </div>
-      <div style="position:absolute;left:87.5%;top:60%;width:12.5%;height: 20%;" id="B_H">
+      <!--      <div style="position:absolute;left:85.71%;top:54.5%;width:14.29%;height: 18.5%;;" id="B_R">-->
+      <!--      </div>-->
+      <div style="position:absolute;left:85.71%;top:54.5%;width:14.29%;height: 18.5%;" id="B_H">
       </div>
       <!--x 第4行的格子结束 x-->
 
       <!-- 这里开始是第5行的格子 -->
-      <div style="position:absolute;left:0%;top:80%;width:12.5%;height: 20%;" id="B_D">
+      <div style="position:absolute;left:0%;top:73%;width:14.2%;height: 18.5%;" id="B_D">
       </div>
-      <div style="position:absolute;left:12.5%;top:80%;width:12.5%;height: 20%;" id="B_B">
+      <div style="position:absolute;left:14.29%;top:73%;width:14.2%;height: 18.5%;" id="B_K">
       </div>
-      <div style="position:absolute;left:25%;top:80%;width:12.5%;height: 20%;" id="B_M">
+      <div style="position:absolute;left:28.57%;top:73%;width:14.2%;height: 18.5%;" id="B_M">
       </div>
-      <div style="position:absolute;left:37.5%;top:80%;width:12.5%;height: 20%;" id="B_T">
+      <div style="position:absolute;left:42.86%;top:73%;width:14.2%;height: 18.5%;" id="B_R">
       </div>
-      <div style="position:absolute;left:50%;top:80%;width:12.5%;height: 20%;" id="B_Z">
+      <div style="position:absolute;left:57.14%;top:73%;width:14.2%;height: 18.5%;" id="B_T">
       </div>
-      <div style="position:absolute;left:62.5%;top:80%;width:12.5%;height: 20%;" id="B_End">
+      <div style="position:absolute;left:71.43%;top:73%;width:14.2%;height: 18.5%;" id="B_Z">
       </div>
-      <div style="position:absolute;left:75%;top:80%;width:25%;height: 20%;" id="B_Ans">
+      <div style="position:absolute;left:85.71%;top:73%;width:14.2%;height: 18.5%;" id="B_End">
       </div>
       <!--x 第5行的格子结束 x-->
 
     </div>
   </div>
 </div>
-
+</div>
 
 <script>
+//事件监听，新增了按钮
+document.addEventListener('DOMContentLoaded', function () {
+  var card = document.getElementById('card');
+  var cardImage = card.querySelector('img'); // 获取 card 中的图片元素
 
-  //这里加了事件监听
-  document.addEventListener('DOMContentLoaded', function () {
+  // 显示带有指定图片的卡片的函数
+  function showCardWithImage(imageUrl) {
+    cardImage.src = imageUrl; // 设置图片源
+    card.style.display = 'block'; // 显示卡片
+    card.style.animation = 'rotateCard 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards'; // 应用动画
+  }
 
-//这里加了事件监听,关于卡片的效果的
-    var card = document.getElementById('card');
-
-    document.getElementById('B_Start').addEventListener('click', function() {
-      var card = document.getElementById('card');
-      card.style.display = 'block'; // 显示卡片
-      card.style.animation = 'rotateCard 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards'; // 应用动画
-    });
-
-
-    // 隐藏卡片时移除动画
-    card.addEventListener('click', function() {
-      card.style.display = 'none';
-      card.style.animation = 'none'; // 移除动画
-    });
+  // 绑定到 B_Start 按钮的事件监听器
+  document.getElementById('startButton').addEventListener('click', function() {
+    showCardWithImage('https://github.com/vita-cpu/Pradaproject/blob/main/Start.png?raw=true');
   });
+
+  // 绑定到 B_Q 格子里的按钮的事件监听器
+  document.getElementById('button_Q').addEventListener('click', function() {
+    showCardWithImage('https://github.com/vita-cpu/Pradaproject/blob/main/%E8%A9%9E%E6%A2%9D/%E8%AF%8D%E6%9D%A1-Q.png?raw=true');
+  });
+
+  // 点击卡片时隐藏卡片并移除动画的事件监听器
+  document.getElementById('card').addEventListener('click', function() {
+    card.style.display = 'none';
+  });
+});
+
+
 
 
 
@@ -349,6 +489,23 @@
       }
 
       finalMove();
+
+
+
+
+
+       // 确定目标元素
+var targetElement = document.getElementById('B_Start');
+
+// 检查是否是目标元素
+if (target.id === 'B_Start') {
+  // 滑动到目标元素
+  targetElement.scrollIntoView({
+    behavior: 'smooth', // 平滑滑动
+    block: 'center',    // 将元素的中心对齐到视口的中心
+    inline: 'center'    // 在可能的情况下，不进行水平滚动
+  });
+}
     };
 
 
@@ -371,13 +528,19 @@
       cell.addEventListener('click', handleCharacterMove);
     });
 
-    // 计算并更新角色位置
+    //解决抽搐问题新增
+    var isMoving = false;
 
     function moveCharacterTo(x, y, targetCellId, callback) {
+      //解决抽搐问题新增
+        if (isMoving) return; // 如果角色正在移动，则不执行任何操作
+        isMoving = true; // 设置移动标志
+
+        //原代码，上面的是新增的
       var startX = parseInt(character.style.left, 10) || 0;
       var startY = parseInt(character.style.top, 10) || 0;
-      var endX = x;
-      var endY = y;
+      var endX = x+window.scrollX;
+      var endY = y+window.scrollY;
 
       // Calculate the displacement for each step
       var deltaX = (endX - startX) / 7;
@@ -391,39 +554,62 @@
           character.style.left = nextX + 'px';
           character.style.top = nextY + 'px';
           character.classList.add('jumping'); // Start the small jump
+                    // 计算滚动的目标位置
+          var scrollX = nextX - (character.offsetWidth/2 ) - (window.innerWidth / 2);
+          var scrollY = nextY - (character.offsetHeight/2) - (window.innerHeight / 2);
+
+            // 滑动浏览器窗口以将div2的右下角置于屏幕中央
+            window.scrollTo({
+                top: scrollY,
+                left: scrollX,
+                behavior: 'smooth'
+            });
+
+
+     
         }, i * 600); // Adjust the delay for each step
+        
         setTimeout(function() {
           character.classList.remove('jumping'); // End the small jump
         }, i * 600 + 300); // Adjust the duration for each jump
       }
 
+
       // Callback function after completing the movement
+      //这里新增了（index10的变化）
       setTimeout(function() {
+        isMoving = false;
         if (callback) {
           callback();
         }
-      },  6000);
+      }, 6000);
     }
 
 
-    function moveCharacterTo2(x, y, targetCellId,callback) {
-      character.style.display='none';
+    //这是V10修改抽搐问题后的代码
+    function moveCharacterTo2(x, y, targetCellId, callback) {
+      if (isMoving) return; // 如果角色正在移动，则不执行任何操作
+      isMoving = true; // 设置移动标志
+
+      character.style.display = 'none'; // 隐藏角色
       character.style.left = x + 'px';
       character.style.top = y + 'px';
 
       setTimeout(function() {
-        character.style.display='block';
+        character.style.display = 'block'; // 显示角色
+        isMoving = false; // 重置移动标志
+        window.scrollTo({
+              top: scrollY,
+              left: scrollX,
+              behavior: 'smooth'
+          });
         if (callback) {
           callback();
         }
-      }, 1);
-      return;
-    };
+      }, 1); // 短暂延迟以实现瞬移效果
+    }
 
-
-
-    
-function positionCharacterInBStart() {
+    function positionCharacterInBStart() {
     // 获取元素
     var character = document.getElementById('character');
     var bStart = document.getElementById('B_Start');
@@ -441,39 +627,19 @@ function positionCharacterInBStart() {
         character.style.position = 'absolute';
         character.style.left = centerX - (character.offsetWidth / 2) + 'px';
         character.style.top = centerY - (character.offsetHeight / 2) + 'px';
+
+        // var scrollX = bStartRect.left + (bStartRect.offsetWidth / 2) - (window.innerWidth / 2);
+        // var scrollY =  bStartRect.left + (bStartRect.offsetHeight / 2) - (window.innerHeight / 2);
+
+
+        // window.scrollTo({
+        //       top: scrollY,
+        //       left: scrollX,
+        //       behavior: 'smooth'
+        //   });
     }
 }
 
-// // 1. 在页面加载时执行
-// document.addEventListener('DOMContentLoaded', function() {
-//     // 2. 获取浏览器窗口大小
-//     var browserWidth = window.innerWidth;
-//     var browserHeight = window.innerHeight;
-
-//     // 3. 获取 'whole_map' 元素的大小和位置
-//     var map = document.getElementById('whole_map');
-//     if (map) {
-//         var rect = map.getBoundingClientRect();
-
-//         // 4. 计算缩放比例
-//         var scaleX = browserWidth / rect.width;
-//         var scaleY = browserHeight / rect.height;
-//         var scale = Math.min(scaleX, scaleY);
-
-//         // 5. 设置 'whole_map' 元素的缩放和位置
-//         map.style.transformOrigin = 'top left';
-//         map.style.transform = `scale(${scale})`;
-//         map.style.position = 'absolute';
-//         map.style.left = -rect.left + 'px';
-//         map.style.top = -rect.top + 'px';
-//     }
-
-
-// });
-
-// document.addEventListener('DOMContentLoaded', function() {
-    
-// });
 
 window.onload = function() {
 
@@ -483,15 +649,15 @@ window.onload = function() {
 
     // 3. 获取 'whole_map' 元素的大小和位置
     var map = document.getElementById('whole_map');
-    
+
     var character = document.getElementById('character');
     if (map) {
         var rect = map.getBoundingClientRect();
 
         // 4. 计算缩放比例
-        var scaleX = 3000 / rect.width;
-        var scaleY = 2165.5 / rect.height;
-        var scale = Math.min(scaleX, scaleY);
+        var scaleX = browserWidth / rect.width;
+        var scaleY = browserHeight / rect.height;
+        var scale = Math.max(scaleX, scaleY);
 
         // 5. 设置 'whole_map' 元素的缩放和位置
         map.style.transformOrigin = 'top left';
@@ -499,19 +665,55 @@ window.onload = function() {
         map.style.position = 'absolute';
         map.style.left = -rect.left + 'px';
         map.style.top = -rect.top + 'px';
-
-        
-        character.style.transformOrigin = 'top left';
-        character.style.transform = `scale(${scale})`;
-        character.style.position = 'absolute';
     }
         positionCharacterInBStart();
-
-
 
   };
 
   });
+
+// //V11新增滑动特效
+// document.addEventListener('click', function(event) {
+//   var character = document.getElementById('character'); // 获取ID为'character'的元素
+//   var wholeMap = document.getElementById('whole_map'); // 获取ID为'whole_map'的元素
+//
+//   // 计算'character'元素的新位置
+//   var newX = event.clientX - character.offsetWidth / 2; // 新的X坐标
+//   var newY = event.clientY - character.offsetHeight / 2; // 新的Y坐标
+//
+//   // 将'character'元素移动到新位置
+//   character.style.left = newX + 'px'; // 设置新的左边距
+//   character.style.top = newY + 'px'; // 设置新的顶边距
+//
+//   // 移动背景以产生视差效果
+//   var backgroundShiftX = -newX; // 背景X轴的移动量
+//   var backgroundShiftY = -newY; // 背景Y轴的移动量
+//
+//   wholeMap.style.left = backgroundShiftX + 'px'; // 设置背景的新左边距
+//   wholeMap.style.top = backgroundShiftY + 'px'; // 设置背景的新顶边距
+// });
+
+// //V12尝试新的平移（绑定格子）
+// document.addEventListener('click', function(event) {
+//   var character = document.getElementById('character'); // Get the 'character' element
+//   var gridContainer = document.getElementById('grid-container'); // Get the 'grid-container' element
+//
+//   // Calculate the new position for the character
+//   var newX = event.clientX - character.offsetWidth / 2;
+//   var newY = event.clientY - character.offsetHeight / 2;
+//
+//   // Move the character to the new position
+//   character.style.transform = `translate(${newX}px, ${newY}px)`;
+//
+//   // Move the grid container in the opposite direction
+//   gridContainer.style.transform = `translate(${-newX}px, ${-newY}px)`;
+// });
+// //
+// 但要新增<div id="grid-container">
+//         <!-- All your grid divs go here -->
+//         </div>
+
+
 </script>
 
 </body>
