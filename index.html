@@ -183,8 +183,8 @@
     }
     #game-board {
       position: relative;
-      width: 5%;
-      height: 5%;
+      width: 50%;
+      height: 50%;
       /* background-image: url('https://github.com/vita-cpu/Pradaproject/blob/main/%E6%A3%8B%E7%9B%98%E6%9B%B4%E6%96%B0_00.png?raw=true');
       background-position: center;
       background-repeat: no-repeat;
@@ -245,18 +245,18 @@
 </head>
 <body>
 
-<div class="image-container" id="image_container">
+<div class="image-container" id="image_container" >
   <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E9%99%8D%E8%90%BD%E4%BC%9E-%E6%A9%99.png?raw=true" alt="Character Icon"
        class="character" id="character" style="width: 20vw; height:auto; z-index:1;">
 
   <div style="position: relative;width:700vw;height: 250vh;" id="whole_map">
     <div id="card">
-      <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E5%8D%A1%E7%89%87.png?raw=true'" alt="Displayed Image" /> <!-- 示例图片，您可以替换为您希望显示的图片 -->
+      <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E5%8D%A1%E7%89%87.png?raw=true'" id="DI" /> <!-- 示例图片，您可以替换为您希望显示的图片 -->
     </div>
     <!-- 修改1: 替换最新的地图 -->
     <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E8%AA%8C%E5%B1%8Bvol39_prada%E6%A3%8B%E7%9B%98.jpg?raw=true" alt="Your Image"> 
     <!-- # 修改2: 更改"left:2%;top:3.3%;width:96%;height: 82.7%;"这一堆数值，让它能完整切割整体格子 -->
-    <div style="position:absolute;left:0%;top:0%;width:100%;height: 100%;" id="block">
+    <div style="position:absolute;left:27.27%;top:0%;width:63.64%;height: 100%;" id="block">
       <!-- 这里开始是第1行的格子 -->
       <div style="position:absolute;left:0%;top:0%;width:28.57%;height:17.5%;" id="logo">
       </div>
@@ -297,7 +297,7 @@
 
 
       <!-- 这里开始是第2行的格子 -->
-      <div style="position:absolute;left:0%;top:17.5%;width:14.29%;height:18.5%;" id="B_K">
+      <div style="position:absolute;left:0%;top:17.5%;width:14.29%;height:18.5%;" id="B_B">
       </div>
       <div style="position:absolute;left:14.29%;top:17.5%;width:14.29%;height: 18.5%;" id="B_X">
       </div>
@@ -384,6 +384,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // 显示带有指定图片的卡片的函数
   function showCardWithImage(imageUrl,now_ID) {
     button=document.getElementById(now_ID)
+    image_A = document.getElementById('DI')
     cardImage.src = imageUrl; // 设置图片源
     var centerX = window.scrollX+window.innerWidth / 2; 
     var centerY = window.scrollY + (window.innerHeight / 2); 
@@ -394,8 +395,11 @@ document.addEventListener('DOMContentLoaded', function () {
     card.style.width = "80%";
     card.style.display = 'block'; // 显示卡片
     card.style.animation = 'rotateCard 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards'; // 应用动画
-
-
+    // image_A.style.maxWidth = '1000%'
+    card.style.maxWidth = '20%'
+    // // 应用放大动画
+    // card.style.transform = "scale(100)"; // 以原大小的1.8倍来放大卡片
+    // card.style.transition = "transform 0.5s ease"; // 设置动画过渡效果，0.5秒内完成
   }
 
 
@@ -408,6 +412,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // 绑定到 B_Q 格子里的按钮的事件监听器
   document.getElementById('button_Q').addEventListener('click', function() {
     showCardWithImage('https://github.com/vita-cpu/Pradaproject/blob/main/%E8%A9%9E%E6%A2%9D/%E8%AF%8D%E6%9D%A1-Q.png?raw=true','startButton');
+  });
+
+  // 绑定到 B_O 格子里的按钮的事件监听器
+  document.getElementById('button_O').addEventListener('click', function() {
+    showCardWithImage('https://github.com/vita-cpu/Pradaproject/blob/main/%E8%A9%9E%E6%A2%9D/7a8afb88f3bfb3f2ba06a6053963f87.jpg?raw=true','button_O');
   });
 
 
@@ -444,10 +453,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // 处理角色移动
     function handleCharacterMove(event) {
       var map_array=[["B_Start","B_O","B_Q","B_C","B_Pass"],
-        ["B_G","B_I","B_N","B_Pass2","B_W","B_X","B_K"],
-        ["B_Pass3","B_Y","B_J","B_E","B_Choose3","B_F","B_S"],
-        ["B_H","B_R","B_A","B_P","B_V","B_Choose4","B_L","B_U"],
-        ["B_D","B_B","B_M","B_T","B_Z","B_End","B_Ans"]]
+        ["B_G","B_I","B_N","B_Pass2","B_W","B_X","B_B"],
+        ["B_Pass3","B_J","B_Y","B_E","B_Choose3","B_F","B_S"],
+        ["B_H","B_A","B_P","B_V","B_Choose4","B_L","B_U"],
+        ["B_D","B_K","B_M","B_R","B_T","B_Z","B_End"]]
       var target = event.target;
       if (!target.id.startsWith('B_')) return; // 忽略非 B_ 开头的元素
 
@@ -602,11 +611,11 @@ if (target.id === 'B_Start') {
       var endY = y+window.scrollY;
 
       // Calculate the displacement for each step
-      var deltaX = (endX - startX) / 7;
-      var deltaY = (endY - startY) / 7;
+      var deltaX = (endX - startX) / 1;
+      var deltaY = (endY - startY) / 1;
 
       // Perform a small jump with each step
-      for (let i = 1; i <= 7; i++) {
+      for (let i = 1; i <= 1; i++) {
         setTimeout(function() {
           var nextX = startX + deltaX * i;
           var nextY = startY + deltaY * i;
@@ -614,23 +623,21 @@ if (target.id === 'B_Start') {
           character.style.top = nextY + 'px';
           character.classList.add('jumping'); // Start the small jump
                     // 计算滚动的目标位置
-          var scrollX = nextX - (character.offsetWidth/2 ) - (window.innerWidth / 2);
-          var scrollY = nextY - (character.offsetHeight/2) - (window.innerHeight / 2);
-
-            // 滑动浏览器窗口以将div2的右下角置于屏幕中央
-            window.scrollTo({
-                top: scrollY,
-                left: scrollX,
-                behavior: 'smooth'
-            });
-
-
-     
-        }, i * 600); // Adjust the delay for each step
+          var scrollX = nextX - (character.offsetWidth )*11/7 - (window.innerWidth / 2)*11/7;
+          var scrollY = nextY - (character.offsetHeight)*11/7 - (window.innerHeight/2)*11/7;
+          
+          
+          // 滑动浏览器窗口以将div2的右下角置于屏幕中央
+          window.scrollTo({
+              top: scrollY,
+              left: scrollX,
+              behavior: 'smooth'
+          });     
+        }, i); // Adjust the delay for each step
         
         setTimeout(function() {
           character.classList.remove('jumping'); // End the small jump
-        }, i * 600 + 300); // Adjust the duration for each jump
+        },  600); // Adjust the duration for each jump
       }
 
 
@@ -641,7 +648,7 @@ if (target.id === 'B_Start') {
         if (callback) {
           callback();
         }
-      }, 6000);
+      }, 600);
     }
 
 
@@ -724,6 +731,8 @@ window.onload = function() {
         map.style.position = 'absolute';
         map.style.left = -rect.left + 'px';
         map.style.top = -rect.top + 'px';
+        map.style.paddingRight = "100vw"
+        map.style.paddingLeft = "300vw"
     }
         positionCharacterInBStart();
 
