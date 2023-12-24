@@ -1,812 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Character with Enhanced Jump Effect</title>
-  <style>
-    body, html {
-      margin: 0;
-      height: 100%;
-      overflow: auto;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marry Christmas 2023</title>
+    
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" type="css" href="style.css">
 
-/*开始格子按钮的特效*/
-     @property --border-angle-1 {
-      syntax: "<angle>";
-      inherits: true;
-      initial-value: 0deg;
-    }
-    @property --border-angle-2 {
-      syntax: "<angle>";
-      inherits: true;
-      initial-value: 90deg;
-    }
-    @property --border-angle-3 {
-      syntax: "<angle>";
-      inherits: true;
-      initial-value: 180deg;
-    }
-    :root {
-      --white: #fff;
-      --background: #191816;
-      --foreground: white;
-      --border-size: 1px;
-      --border-radius: .75em;
-    }
-    @keyframes rotateBackground {
-      to { --border-angle-1: 360deg; }
-    }
-    @keyframes rotateBackground2 {
-      to { --border-angle-2: -270deg; }
-    }
-    @keyframes rotateBackground3 {
-      to { --border-angle-3: 540deg; }
-    }
-    #startButton {
-      position: absolute;
-      left: 50%;
-      top: 80%;
-      transform: translate(-50%, -50%);
-      width: 80%;
-      height: 26%;
-      color: inherit;
-      font-family: inherit;
-      border: 0;
-      padding: var(--border-size);
-      border-radius: var(--border-radius);
-      background-color: transparent;
-      background-image: conic-gradient(from var(--border-angle-1) at 10% 15%, transparent, var(--white) 10%, transparent 30%, transparent),
-      conic-gradient(from var(--border-angle-2) at 70% 60%, transparent, var(--white) 10%, transparent 60%, transparent),
-      conic-gradient(from var(--border-angle-3) at 50% 20%, transparent, var(--white) 10%, transparent 50%, transparent);
-      animation: rotateBackground 3s linear infinite,
-      rotateBackground2 8s linear infinite,
-      rotateBackground3 13s linear infinite;
-    }
-    #startButton div {
-      background: var(--background);
-      padding: 2.5em 1.8em;
-      border-radius: calc(var(--border-radius) - var(--border-size));
-      color: var(--foreground);
-    }
+    <!-- Link to the external JavaScript file -->
+    <script src="app.js" defer></script>
+    <style>
+        #div1 {
+            display: block;
+            position: fixed;
+            bottom: 0; /* 保持在屏幕底部 */
+            left: 50%; /* 将 div 水平放置在屏幕中央 */
+            transform: translateX(-50%); /* 使用 transform 来精确居中 */
+            background-color: red; /* 背景颜色 */
+            color: white; /* 文本颜色 */
+            text-align: center;
+            padding: 10px; /* 添加一些填充以获得更好的外观 */
+            z-index: 10;
+            font-size: 30px; /* 字体大小 */
+            font-family: 'Times New Roman', Times, serif; /* 字体家族 */
+        }
 
-    /* 保留原有关键帧动画定义 */
-
-    #B_O button, #B_Q button, #B_C button {
-      position: absolute;
-      left: 50%;
-      top: 87%;
-      transform: translate(-50%, -50%);
-      width: 90%; /* 确保与特效框宽度一致 */
-      height: 26%; /* 确保与特效框高度一致 */
-      color: inherit;
-      font-family: inherit;
-      border: 0;
-      padding: var(--border-size);
-      border-radius: var(--border-radius);
-      background-color: transparent;
-      background-image: conic-gradient(from var(--border-angle-1) at 10% 15%, transparent, var(--white) 10%, transparent 30%, transparent),
-      conic-gradient(from var(--border-angle-2) at 70% 60%, transparent, var(--white) 10%, transparent 60%, transparent),
-      conic-gradient(from var(--border-angle-3) at 50% 20%, transparent, var(--white) 10%, transparent 50%, transparent);
-      animation: rotateBackground 3s linear infinite,
-      rotateBackground2 8s linear infinite,
-      rotateBackground3 13s linear infinite;
-    }
-
-    #B_O div, #B_C div {
-      background: #79C38E; /* 设置为十六进制颜色 #79C38E */
-      padding: 2.5em 1.5em;
-      border-radius: calc(var(--border-radius) - var(--border-size));
-      color: var(--foreground);
-      font-size: 0.6em;
-    }
-
-    #B_Q div {
-      background: var(--background); /* B_Q 保持原有的背景色 */
-      padding: 2.5em 1.5em;
-      border-radius: calc(var(--border-radius) - var(--border-size));
-      color: var(--foreground);
-      font-size: 0.6em;
-    }
-    /*按钮的特效更新*/
-    /* 保留您之前定义的属性和动画 */
-    /* ...您的现有 CSS代码... */
-
-    /* B_End更新按钮样式以包含特效 */
-
-    #B_End button {
-      position: absolute;
-      left: 50%;
-      top: 40%;
-      transform: translate(-50%, -50%);
-      width: 100%; /* 调整宽度以适应 div */
-      height: 100%; /* 调整高度以适应 div */
-      border: 0;
-      padding: var(--border-size);
-      border-radius: var(--border-radius);
-      background-color: transparent;
-      background-image: conic-gradient(from var(--border-angle-1) at center, transparent, var(--white) 10%, transparent 30%, transparent),
-      conic-gradient(from var(--border-angle-2) at center, transparent, var(--white) 10%, transparent 60%, transparent),
-      conic-gradient(from var(--border-angle-3) at center, transparent, var(--white) 10%, transparent 50%, transparent);
-      background-size: 100% 100%; /* 缩小特效框 */
-      background-position: center; /* 特效框居中 */
-      animation: rotateBackground 3s linear infinite,
-      rotateBackground2 8s linear infinite,
-      rotateBackground3 13s linear infinite;
-    }
-
-    #B_End button img {
-      width: 50%; /* 或者根据您的需求调整 */
-      height: 50%; /* 或者根据您的需求调整 */
-      position: relative;
-      top: 50%; /* 将图片居中 */
-      left: 50%; /* 将图片居中 */
-      transform: translate(-50%, -50%);
-    }
-
-
-
-
-    /*!*V13解决屏幕水平滑动的新特效*!*/
-    /*#grid-container {*/
-    /*  position: absolute;*/
-    /*  transition: transform 0.3s ease; // Smooth transition for movement*/
-    /*}*/
-
-
-/*这里开始是卡片*/ 
-/*修改4: 更改card的位置、比例，最好能把百分比和数字相关的内容，用vw vh设置，比如top, left, width, height这些。*/    
-#card {
-      display: none; /* Default to not displayed */
-      position: fixed;
-      top: 30vh;
-      left: 45vw;
-      transform: translate(-50%, -50%)scale(0.9);
-      z-index: 1000; /* Make sure this is higher than other elements */
-      background-color: white;
-      border: 1px solid black;
-      padding: 0px;
-      width: 30vw; /* Adjust as necessary */
-      height: auto; /* Adjust as necessary */
-      max-width: 80vw; /* Prevent the image from being too large */
-      max-height: auto; /* Prevent the image from being too large */
-      overflow: hidden; /* Hide the overflow */
-      animation: rotateCard 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; /* 使用 cubic-bezier 函数 */
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      /* width: 30vw;height: 90vh; justify-content: center;align-items: center; */
-    }
-    #card img {
-      width: 100%; /* Adjust the image to the container width */
-      height: 100%; /* Adjust the image height automatically */
-    }
-    #game-board {
-      position: relative;
-      width: 50%;
-      height: 50%;
-      /* background-image: url('https://github.com/vita-cpu/Pradaproject/blob/main/%E6%A3%8B%E7%9B%98%E6%9B%B4%E6%96%B0_00.png?raw=true');
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: contain; */
-    }
-
-
-    @keyframes rotateCard {
-      0% {
-        transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
-        opacity: 0;
+      svg {
+          position: relative;
       }
-      100% {
-        transform: translate(-50%, -50%) scale(0.5) rotate(360deg);
-        opacity: 1;
-      }
-    }
-
-    .character {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 2%;
-      cursor: pointer;
-      transition: left 0.5s, top 0.5s;
-    }
-
-    @keyframes jump {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-30%); } /* Increased jump height */
-    }
-
-    .jumping {
-      animation: jump 0.6s ease-out;
-    }
-
-    .image-container {
-      /* padding-left: 10%; */
-      width: 100%; /* 设置宽度为100% */
-      height: auto; /* 高度自动调整 */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: auto; /* 允许滚动 */
-    }
-
-    .image-container img {
-      max-width: 100%; /* 图片最大宽度为100% */
-      height: auto; /* 高度自动调整 */
-    }
-
-
-
-
-
-
   </style>
 </head>
 <body>
-
-<div class="image-container" id="image_container" >
-  <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E9%99%8D%E8%90%BD%E4%BC%9E-%E6%A9%99.png?raw=true" alt="Character Icon"
-       class="character" id="character" style="width: 20vw; height:auto; z-index:1;">
-
-  <div style="position: relative;width:700vw;height: 250vh;" id="whole_map">
-    <div id="card">
-      <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E5%8D%A1%E7%89%87.png?raw=true'" id="DI" /> <!-- 示例图片，您可以替换为您希望显示的图片 -->
-    </div>
-    <!-- 修改1: 替换最新的地图 -->
-    <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E8%AA%8C%E5%B1%8Bvol39_prada%E6%A3%8B%E7%9B%98.jpg?raw=true" alt="Your Image"> 
-    <!-- # 修改2: 更改"left:2%;top:3.3%;width:96%;height: 82.7%;"这一堆数值，让它能完整切割整体格子 -->
-    <div style="position:absolute;left:27.27%;top:0%;width:63.64%;height: 100%;" id="block">
-      <!-- 这里开始是第1行的格子 -->
-      <div style="position:absolute;left:0%;top:0%;width:28.57%;height:17.5%;" id="logo">
-      </div>
-      <!-- B表示Block格子，B_Start表示 Start 这个格子；同理 B_O表示字母为O的格子 -->
-      <div style="position:absolute;left:28.57%;top:0%;width:14.29%;height:17.5%;" id="B_Start">
-        <!-- # 修改3: 调整每个button，你可以仿照START这样去写。一般来说直接把文本放在button里面就行，不用另开div  -->
-        <button id="startButton" class="flowing-light-effect" style="position: absolute; left: 50%; top: 84%; width: 80%; height: 24%;transform: translate(-50%, -50%);">
-            <div>
-                START
-            </div>
-        </button>
-
-      </div>
-
-
-      <div style="position:absolute;left:42.86%;top:0%;width:14.29%;height:17.5%;" id="B_O">
-        <button id="button_O" class="flowing-light-effect" style="position: absolute; left: 50%; top: 89%; transform: translate(-50%, -50%); width: 90%; height: 18%;">
-          <div>奥斯曼帝国在意大利败退,PRADA正式在米兰创立。<br>
-            🔍检索PRADA PEDIA -ORIGINS</div>
-      </div>
-      <div style="position:absolute;left:57.14%;top:0%;width:14.29%;height:17.5%;" id="B_Q">
-        <!-- B_Q button -->
-        <button id="button_Q" class="flowing-light-effect" style="position: absolute; left: 50%; top: 89%; transform: translate(-50%, -50%); width: 90%; height: 18%;">
-          <div>标志上徽章和绳结象征当时意大利的哪个王朝?<br>
-            🔍检索PRADA PEDIA - QUALITY</div>
-        </button>
-      </div>
-      <div style="position:absolute;left:71.43%;top:0%;width:14.29%;height:17.5%;" id="B_C">
-        <!-- B_C button -->
-        <button id="button_C" class="flowing-light-effect" style="position: absolute; left: 50%; top: 89%; transform: translate(-50%, -50%); width: 90%; height: 18%;">
-          <div>坐上PRADA列车好奇心爆棚前往你想到达的任意字母格<br>
-            🔍检索 PRADAPEDIA - CURIOSITY</div>
-        </button>
-      </div>
-      <div style="position:absolute;left:85.71%;top:0%;width:14.29%;height:17.5%;" id="B_Pass">
-      </div>
-      <!--x 第1行的格子结束 x-->
-
-
-      <!-- 这里开始是第2行的格子 -->
-      <div style="position:absolute;left:0%;top:17.5%;width:14.29%;height:18.5%;" id="B_B">
-      </div>
-      <div style="position:absolute;left:14.29%;top:17.5%;width:14.29%;height: 18.5%;" id="B_X">
-      </div>
-      <div style="position:absolute;left:28.57%;top:17.5%;width:14.29%;height: 18.5%;" id="B_W">
-      </div>
-      <div style="position:absolute;left:42.86%;top:17.5%;width:14.29%;height: 18.5%;" id="B_Pass2">
-      </div>
-      <div style="position:absolute;left:57.14%;top:17.5%;width:14.29%;height: 18.5%;" id="B_N">
-      </div>
-      <div style="position:absolute;left:71.43%;top:17.5%;width:14.29%;height: 18.5%;" id="B_I">
-      </div>
-      <div style="position:absolute;left:85.71%;top:17.5%;width:14.29%;height: 18.5%;" id="B_G">
-      </div>
-      <!--x 第2行的格子结束 x-->
-
-      <!-- 这里开始是第3行的格子 -->
-      <div style="position:absolute;left:0%;top:36%;width:14.29%;height: 18.5%;" id="B_Pass3">
-      </div>
-      <div style="position:absolute;left:14.29%;top:36%;width:14.29%;height: 18.5%;" id="B_J">
-      </div>
-      <div style="position:absolute;left:28.57%;top:36%;width:14.29%;height: 18.5%;" id="B_Y">
-      </div>
-      <div style="position:absolute;left:42.86%;top:36%;width:14.29%;height: 18.5%;" id="B_E">
-      </div>
-      <div style="position:absolute;left:57.14%;top:36%;width:14.29%;height: 18.5%;" id="B_Choose3">
-      </div>
-      <div style="position:absolute;left:71.43%;top:36%;width:14.29%;height: 18.5%;" id="B_F">
-      </div>
-      <div style="position:absolute;left:85.71%;top:36%;width:14.29%;height: 18.5%;" id="B_S">
-      </div>
-      <!--x 第3行的格子结束 x-->
-
-      <!-- 这里开始是第4行的格子 -->
-      <div style="position:absolute;left:0%;top:54.5%;width:14.29%;height: 18.5%;" id="B_U">
-      </div>
-      <div style="position:absolute;left:14.29%;top:54.5%;width:14.29%;height: 18.5%;" id="B_L">
-      </div>
-      <div style="position:absolute;left:28.57%;top:54.5%;width:14.29%;height: 18.5%;" id="B_Choose4">
-      </div>
-      <div style="position:absolute;left:42.86%;top:54.5%;width:14.29%;height: 18.5%;" id="B_V">
-      </div>
-      <div style="position:absolute;left:57.14%;top:54.5%;width:14.29%;height: 18.5%;" id="B_P">
-      </div>
-      <div style="position:absolute;left:71.43%;top:54.5%;width:14.29%;height: 18.5%;" id="B_A">
-      </div>
-      <!--      <div style="position:absolute;left:85.71%;top:54.5%;width:14.29%;height: 18.5%;;" id="B_R">-->
-      <!--      </div>-->
-      <div style="position:absolute;left:85.71%;top:54.5%;width:14.29%;height: 18.5%;" id="B_H">
-      </div>
-      <!--x 第4行的格子结束 x-->
-
-      <!-- 这里开始是第5行的格子 -->
-      <div style="position:absolute;left:0%;top:73%;width:14.2%;height: 18.5%;" id="B_D">
-      </div>
-      <div style="position:absolute;left:14.29%;top:73%;width:14.2%;height: 18.5%;" id="B_K">
-      </div>
-      <div style="position:absolute;left:28.57%;top:73%;width:14.2%;height: 18.5%;" id="B_M">
-      </div>
-      <div style="position:absolute;left:42.86%;top:73%;width:14.2%;height: 18.5%;" id="B_R">
-      </div>
-      <div style="position:absolute;left:57.14%;top:73%;width:14.2%;height: 18.5%;" id="B_T">
-      </div>
-      <div style="position:absolute;left:71.43%;top:73%;width:14.2%;height: 18.5%;" id="B_Z">
-      </div>
-      <div style="position: absolute; left: 85.71%; top: 73%; width: 14.2%; height: 18.5%;" id="B_End">
-        <button id="imageButton" style="width: 59%; height: 62%;">
-          <img src="https://github.com/vita-cpu/Pradaproject/blob/main/%E8%A9%9E%E6%A2%9D/end_icon.png?raw=true" alt="Button Image" style="width: 99%; height: 99.5%; position: relative; top: 50%; left: 50%;">
-        </button>
-      </div>
-
-      <!--x 第5行的格子结束 x-->
-
-    </div>
-  </div>
-</div>
-</div>
-
-<script>
-//事件监听，新增了按钮
-document.addEventListener('DOMContentLoaded', function () {
-  var card = document.getElementById('card');
-  var cardImage = card.querySelector('img'); // 获取 card 中的图片元素
-
-  // 显示带有指定图片的卡片的函数
-  function showCardWithImage(imageUrl,now_ID) {
-    button=document.getElementById(now_ID)
-    image_A = document.getElementById('DI')
-    cardImage.src = imageUrl; // 设置图片源
-    var centerX = window.scrollX+window.innerWidth / 2; 
-    var centerY = window.scrollY + (window.innerHeight / 2); 
-    /* card.style.left = button.left + 'px';
-    card.style.top = button.top + 'px'; */
-    card.style.left = centerX+button.offsetLeft + 'px';
-    card.style.top = card.height/2+button.offsetTop + 'px';
-    card.style.width = "80%";
-    card.style.display = 'block'; // 显示卡片
-    card.style.animation = 'rotateCard 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards'; // 应用动画
-    // image_A.style.maxWidth = '1000%'
-    card.style.maxWidth = '20%'
-    // // 应用放大动画
-    // card.style.transform = "scale(100)"; // 以原大小的1.8倍来放大卡片
-    // card.style.transition = "transform 0.5s ease"; // 设置动画过渡效果，0.5秒内完成
-  }
-
-
-  // 绑定到 B_Start 按钮的事件监听器
-  document.getElementById('startButton').addEventListener('click', function() {
-    showCardWithImage('https://github.com/vita-cpu/Pradaproject/blob/main/Start.png?raw=true','startButton');
-  });
-
-
-  // 绑定到 B_Q 格子里的按钮的事件监听器
-  document.getElementById('button_Q').addEventListener('click', function() {
-    showCardWithImage('https://github.com/vita-cpu/Pradaproject/blob/main/%E8%A9%9E%E6%A2%9D/%E8%AF%8D%E6%9D%A1-Q.png?raw=true','startButton');
-  });
-
-  // 绑定到 B_O 格子里的按钮的事件监听器
-  document.getElementById('button_O').addEventListener('click', function() {
-    showCardWithImage('https://github.com/vita-cpu/Pradaproject/blob/main/%E8%A9%9E%E6%A2%9D/7a8afb88f3bfb3f2ba06a6053963f87.jpg?raw=true','button_O');
-  });
-
-
-  // 添加用于 B_End 按钮的事件监听器
-  document.getElementById('imageButton').addEventListener('click', function() {
-    showCardWithImage('https://github.com/vita-cpu/Pradaproject/blob/main/End.png?raw=true','B_End');
-  });
-  // 点击卡片时隐藏卡片并移除动画的事件监听器
-  document.getElementById('card').addEventListener('click', function() {
-    card.style.display = 'none';
-  });
-});
-
-
-
-
-
-  //这里是控制边缘线啥的，限制移动的代码
-  document.addEventListener('DOMContentLoaded', function() {
-    var character = document.getElementById('character');
-
-    // 判断是否可以越过上下边界
-    function canCrossBoundary(cellId) {
-      //  return ['B_Pass', 'B_G', 'B_Pass3', 'B_K', 'B_F', 'B_U', 'B_R', 'B_D'].includes(cellId);
-      return ['B_Pass', 'B_K', 'B_S', 'B_U'].includes(cellId);
-    }
-
-    function canCrossBoundary2(cellId) {
-      return [ 'B_G', 'B_Pass3', 'B_H', 'B_D'].includes(cellId);
-    }
-
-
-
-    // 处理角色移动
-    function handleCharacterMove(event) {
-      var map_array=[["B_Start","B_O","B_Q","B_C","B_Pass"],
-        ["B_G","B_I","B_N","B_Pass2","B_W","B_X","B_B"],
-        ["B_Pass3","B_J","B_Y","B_E","B_Choose3","B_F","B_S"],
-        ["B_H","B_A","B_P","B_V","B_Choose4","B_L","B_U"],
-        ["B_D","B_K","B_M","B_R","B_T","B_Z","B_End"]]
-      var target = event.target;
-      if (!target.id.startsWith('B_')) return; // 忽略非 B_ 开头的元素
-
-      var currentCellId = character.getAttribute('data-current-cell') || 'B_Start';
-      var targetCellId = target.id;
-
-      var mouseX = event.clientX; // 水平坐标
-      var mouseY = event.clientY; // 垂直坐标
-
-
-
-      //  var message = "currentCellId：" + currentCellId + "\n targetCellId：" + targetCellId;
-      //  alert(message);
-
-      var findElementPosition=function (twoDArray, target)
-      {
-        var order=0
-        for (let i = 0; i < twoDArray.length; i++) { // 遍历每一行
-          for (let j = 0; j < twoDArray[i].length; j++) { // 遍历每一行的每一列
-            order=order+1
-            if (twoDArray[i][j] === target) {
-              return { row: i, col: j,order:order }; // 找到目标，返回位置
-            }
-          }
-        }
-        return null; // 如果没有找到目标，返回null
-      }
-      var position_currentCell=findElementPosition(map_array,currentCellId)
-      var position_targetCell=findElementPosition(map_array,targetCellId)
-      // var message = "currentCellId：" + currentCellId + "\n targetCellId：" + targetCellId+"\n"+position_currentCell.row+"\n"+position_targetCell.row+"\n"+position_targetCell.order;
-      // alert(message);
-
-      var PassCheck = function() {
-        if (targetCellId=="B_Pass"){
-          alert("恭喜你打开传送门！向前前进一格")
-          var B_G = document.getElementById("B_G");
-
-          var x = B_G.getBoundingClientRect().left + window.scrollX + (B_G.getBoundingClientRect().width - character.offsetWidth) / 2;
-          var y = B_G.getBoundingClientRect().top + window.scrollY + (B_G.getBoundingClientRect().height - character.offsetHeight) / 2;
-          moveCharacterTo2(x, y,targetCellId);
-
-          character.setAttribute('data-current-cell', "B_G");
-
-        }
-        if (targetCellId=="B_Pass3"){
-          alert("恭喜你打开传送门！向前前进两格")
-          var B_Y = document.getElementById("B_Y");
-
-          var x = B_Y.getBoundingClientRect().left + window.scrollX + (B_Y.getBoundingClientRect().width - character.offsetWidth) / 2;
-          var y = B_Y.getBoundingClientRect().top + window.scrollY + (B_Y.getBoundingClientRect().height - character.offsetHeight) / 2;
-          character.setAttribute('data-current-cell', "B_Y");
-          moveCharacterTo2(x, y,targetCellId);
-        }
-      }
-      var finalMove = function() {
-        // 计算点击位置
-        var rect = target.getBoundingClientRect();
-        // var x = rect.left + window.scrollX + (rect.width - character.offsetWidth) / 2;
-        // var y = rect.top + window.scrollY + (rect.height - character.offsetHeight) / 2;
-        var x = mouseX-character.offsetWidth;
-        var y = mouseY-character.offsetHeight;
-        var res1= position_currentCell.row -position_targetCell.row; // 计算是否处在同一行
-        var res2=position_targetCell.order-position_currentCell.order; //计算是否能穿梭
-        // var message = "x: " + x+" y:" + y + "\n x2: " + x2+"y2: "+y2+"\n now_x: "+character.style.left+" now_y: "+character.style.top;
-        // alert(message);
-
-        //  res1=0表示没有跨行 res1!=0表示跨行了
-        if(res1!=0){ //跨行了
-          if (res2==-1){ //跨行且能到上一行
-            moveCharacterTo(x, y,targetCellId);
-            character.setAttribute('data-current-cell', targetCellId);
-          }
-            // alert( position_currentCell.row,"-",position_targetCell.row, "-",res1)
-          // if ((canCrossBoundary(currentCellId)&canCrossBoundary2(targetCellId))&((currentCellId!="B_Pass")|(targetCellId!="B_Pass3"))){
-          else if ((res2==1)){ //跨行且能到下一行
-            moveCharacterTo(x, y,targetCellId,function(){
-              PassCheck();
-            });
-            character.setAttribute('data-current-cell', targetCellId);
-          }
-          else{ //跨行且不能穿梭
-            // alert("currentCellId：" + currentCellId + "\n targetCellId：" + targetCellId);
-            // alert( position_currentCell.row,"-",position_targetCell.row, "-",res1);
-            alert("无法进行该移动");
-            bounceCharacter(3, 600); // 碰撞时弹跳三次，每次弹跳600毫秒
-          }
-        }else{// 没有跨行
-          if (res2<0){ //没有跨行，往回走，不会再次触发传送门
-            moveCharacterTo(x, y,targetCellId);
-            character.setAttribute('data-current-cell', targetCellId);
-          }else{
-            moveCharacterTo(x, y,targetCellId,function(){
-              PassCheck()
-            });
-            character.setAttribute('data-current-cell', targetCellId);
-          }
-        }
-      }
-
-      finalMove();
-
-
-
-
-
-       // 确定目标元素
-var targetElement = document.getElementById('B_Start');
-
-// 检查是否是目标元素
-if (target.id === 'B_Start') {
-  // 滑动到目标元素
-  targetElement.scrollIntoView({
-    behavior: 'smooth', // 平滑滑动
-    block: 'center',    // 将元素的中心对齐到视口的中心
-    inline: 'center'    // 在可能的情况下，不进行水平滚动
-  });
-}
-    };
-
-
-    function bounceCharacter(times, duration) {
-      let count = 0;
-      let interval = setInterval(() => {
-        if (count >= times) {
-          clearInterval(interval); // 达到弹跳次数后停止
-          character.classList.remove('jumping'); // 移除弹跳类
-        } else {
-          character.classList.add('jumping'); // 添加弹跳类
-          setTimeout(() => character.classList.remove('jumping'), duration / 2); // 半途移除弹跳类以完成一次弹跳
-        }
-        count++;
-      }, duration);
-    }
-
-    // 为每个格子添加点击事件监听
-    document.querySelectorAll('[id^="B_"]').forEach(function(cell) {
-      cell.addEventListener('click', handleCharacterMove);
-    });
-
-    //解决抽搐问题新增
-    var isMoving = false;
-
-    function moveCharacterTo(x, y, targetCellId, callback) {
-      //解决抽搐问题新增
-        if (isMoving) return; // 如果角色正在移动，则不执行任何操作
-        isMoving = true; // 设置移动标志
-
-        //原代码，上面的是新增的
-      var startX = parseInt(character.style.left, 10) || 0;
-      var startY = parseInt(character.style.top, 10) || 0;
-      var endX = x+window.scrollX;
-      var endY = y+window.scrollY;
-
-      // Calculate the displacement for each step
-      var deltaX = (endX - startX) / 1;
-      var deltaY = (endY - startY) / 1;
-
-      // Perform a small jump with each step
-      for (let i = 1; i <= 1; i++) {
-        setTimeout(function() {
-          var nextX = startX + deltaX * i;
-          var nextY = startY + deltaY * i;
-          character.style.left = nextX + 'px';
-          character.style.top = nextY + 'px';
-          character.classList.add('jumping'); // Start the small jump
-                    // 计算滚动的目标位置
-          var scrollX = nextX - (character.offsetWidth )*11/7 - (window.innerWidth / 2)*11/7;
-          var scrollY = nextY - (character.offsetHeight)*11/7 - (window.innerHeight/2)*11/7;
-          
-          
-          // 滑动浏览器窗口以将div2的右下角置于屏幕中央
-          window.scrollTo({
-              top: scrollY,
-              left: scrollX,
-              behavior: 'smooth'
-          });     
-        }, i); // Adjust the delay for each step
+    <audio autoplay>
+        <source src="file:///D:/LearningJAVA/Merry-Christmas-2023-Christmas-Tree-Project-main/01-One-Last-Kiss.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+    <svg id="mySvg" class="mainSVG" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 800 800" >
+        <defs>
+          <circle id="circ" class="particle" cx="0" cy="0" r="1"/>
+          <polygon id="star" class="particle" points="4.55,0 5.95,2.85 9.1,3.3 6.82,5.52 7.36,8.65 4.55,7.17 1.74,8.65 2.27,5.52 0,3.3 3.14,2.85 "/>
+        <polygon id="cross" class="particle"  points="4,3.5 2.5,2 4,0.5 3.5,0 2,1.5 0.5,0 0,0.5 1.5,2 0,3.5 0.5,4 2,2.5 3.5,4 "/>  
+        <path id="heart" class="particle" d="M2.9,0C2.53,0,2.2,0.18,2,0.47C1.8,0.18,1.47,0,1.1,0C0.49,0,0,0.49,0,1.1
+            C0,2.6,1.56,4,2,4s2-1.4,2-2.9C4,0.49,3.51,0,2.9,0z"/>  
+         
         
-        setTimeout(function() {
-          character.classList.remove('jumping'); // End the small jump
-        },  600); // Adjust the duration for each jump
-      }
+        <radialGradient id="grad" cx="3" cy="3" r="6" gradientUnits="userSpaceOnUse">
+            <stop  offset="0" style="stop-color:red"/>
+            <stop  offset="0.4" style="stop-color:#334673"/>
+            <stop  offset="0.6" style="stop-color:#EDDDC4"/>
+            <stop  offset="0.9" style="stop-color:#FEE8C7"/>
+            <stop  offset="1" style="stop-color:red"/>
+        </radialGradient>
+          <radialGradient id="dotGrad" cx="0" cy="0" r="50" gradientUnits="userSpaceOnUse">
+            <stop  offset="0" style="stop-color:#FFFFFF;stop-opacity:1"/>
+            <stop  offset="0.1" style="stop-color:#0867C7;stop-opacity:0.6"/>
+            <stop  offset="1" style="stop-color:#081029;stop-opacity:0"/>
+        </radialGradient>
+          
+        <mask id="treePathMask">
+          <path class="treePathMask" fill="none" stroke-width="18" stroke="#FFF" d="M252.9,447.9c0,0-30.8-21.6,33.9-44.7c64.7-23.1,46.2-37,33.9-41.6
+            c-12.3-4.6-59.3-11.6-42.4-28.5s114-52.4,81.7-66.2c-32.4-13.9-58.5-10.8-35.4-29.3s66.2-101.7,70.9-115.6
+            c4.4-13.2,16.9-18.5,24.7,0c7.7,18.5,44.7,100.1,67.8,115.6c23.1,15.4-10.8,21.6-26.2,24.7c-15.4,3.1-20,33.9,33.9,49.3
+            c53.9,15.4,47.8,40.1,27.7,44.7c-20,4.6-63.2,4.6-27.7,32.4s98.6,21.6,61.6,60.1"/>  
+          </mask>
+          <mask id="treeBottomMask">
+        <path class="treeBottomMask" stroke="#FFF" stroke-width="8" d="M207.5,484.1c0,0,58.5-43.1,211.1-3.1s191-16.9,191-16.9"/>    
+            </mask>
+         <mask id="treePotMask">
+        <path class="treePotMask" stroke="#FFF" stroke-width="8" d="M374.3,502.5c0,0-4.6,20,7.7,29.3c12.3,9.2,40.1,7.7,50.8,0s10.8-23.1,10.8-29.3"/>    
+            </mask>
+          
+            <filter id="glow" x="-150%" y="-150%" width="280%" height="280%">
+              <feOffset result="offOut" in="SourceGraphic" dx="0" dy="0" />
+              <feGaussianBlur in="offOut" stdDeviation="16" result="blur" />
+        
+              <feComponentTransfer>
+        <feFuncR type="discrete" tableValues="0.8"/>
+                 <feFuncG type="discrete" tableValues="0.3"/>
+                 <feFuncB type="discrete" tableValues="0.2"/>
+                <!--<feFuncA type="linear" slope="1" intercept="0" />-->
+              </feComponentTransfer>
+        
+              <feComposite in="SourceGraphic" operator="over" />
+        
+            </filter> 
+           
+        </defs>
+        <g class="whole">
+          
+          <g class="pContainer" ></g>
+          
+              <g class="tree" mask="url(#treePathMask)"  >
+                <path d="M252.95,447.85a20.43,20.43,0,0,1-5.64-6.24,14,14,0,0,1-1.91-8.22,16.93,16.93,0,0,1,3.06-8,33.16,33.16,0,0,1,5.79-6.28A74.78,74.78,0,0,1,268.54,410a163.48,163.48,0,0,1,15.52-6.84c10.54-3.93,21-8.07,30.72-13.46a80.83,80.83,0,0,0,7-4.37,37.51,37.51,0,0,0,6.13-5.24c1.75-1.92,3.14-4.18,3.25-6.35s-1.12-4.18-3-5.81a25,25,0,0,0-6.72-3.91,61.25,61.25,0,0,0-7.8-2.42c-5.41-1.4-10.91-2.72-16.38-4.32a84.17,84.17,0,0,1-16.2-6.19,28.26,28.26,0,0,1-3.86-2.5,15.06,15.06,0,0,1-3.44-3.63,9,9,0,0,1-1.51-5.47,10.22,10.22,0,0,1,.61-2.78,12.88,12.88,0,0,1,1.2-2.34,26.73,26.73,0,0,1,6.58-6.56c2.35-1.76,4.76-3.33,7.19-4.84,4.87-3,9.82-5.75,14.77-8.46,9.91-5.4,19.88-10.59,29.63-16.08,4.87-2.75,9.68-5.56,14.33-8.56A81.88,81.88,0,0,0,359.45,280a23,23,0,0,0,2.41-2.79,8.36,8.36,0,0,0,1.35-2.65,2.13,2.13,0,0,0-.17-1.7,5.53,5.53,0,0,0-1.88-1.77,13.15,13.15,0,0,0-1.49-.83c-.52-.26-1.1-.49-1.76-.77-1.27-.53-2.55-1-3.83-1.53q-3.86-1.48-7.8-2.77c-5.26-1.74-10.6-3.23-16-4.79-2.72-.79-5.47-1.58-8.29-2.61a31.74,31.74,0,0,1-4.33-1.92,14.39,14.39,0,0,1-2.29-1.53,8.74,8.74,0,0,1-2.22-2.66,7.2,7.2,0,0,1-.78-4,9.09,9.09,0,0,1,1-3.24,18.93,18.93,0,0,1,3-4.21,44.88,44.88,0,0,1,3.29-3.19c.56-.5,1.12-1,1.68-1.45l1.61-1.33a84,84,0,0,0,10.88-11.88,326.2,326.2,0,0,0,18.79-27.53c5.88-9.5,11.48-19.19,16.89-29S380.1,146.16,385,136.13c1.22-2.51,2.42-5,3.57-7.54s2.29-5.09,3.14-7.45l.36-1c.14-.38.26-.75.42-1.12.29-.75.64-1.48,1-2.21a25.51,25.51,0,0,1,2.65-4.21,19.15,19.15,0,0,1,3.76-3.69,13.74,13.74,0,0,1,5.24-2.42,12.11,12.11,0,0,1,6.12.25,14.59,14.59,0,0,1,5,2.79,20.59,20.59,0,0,1,3.47,3.79,30.33,30.33,0,0,1,2.5,4.1c.35.7.7,1.39,1,2.1l.46,1.05.4,1,1.64,3.84,3.39,7.67q6.88,15.32,14.36,30.37c5,10,10.18,19.94,15.69,29.65a274.94,274.94,0,0,0,17.9,28A73.36,73.36,0,0,0,487.74,233c.49.4,1,.8,1.48,1.15l1.7,1.19a35,35,0,0,1,3.66,3,17.84,17.84,0,0,1,3.32,4.08,10.83,10.83,0,0,1,1.14,2.94,8.54,8.54,0,0,1,0,3.54,10.27,10.27,0,0,1-3.22,5.39,20.71,20.71,0,0,1-4.15,2.91,49,49,0,0,1-8.4,3.46,154,154,0,0,1-16.77,4.09l-4.15.81a9.18,9.18,0,0,0-2.87,1.08,9.51,9.51,0,0,0-4,4.7,12.55,12.55,0,0,0-.67,6.58,19.5,19.5,0,0,0,2.46,6.74A37.19,37.19,0,0,0,468,295.75a75,75,0,0,0,14.14,7.86,129.67,129.67,0,0,0,15.58,5.49A141.4,141.4,0,0,1,513.88,315a75,75,0,0,1,15.19,8.65,37.29,37.29,0,0,1,6.55,6.24,21.05,21.05,0,0,1,4.31,8.49,14.43,14.43,0,0,1-1.24,9.88,18.08,18.08,0,0,1-6.66,6.94,26.74,26.74,0,0,1-8.56,3.33c-2.84.61-5.65,1.06-8.44,1.49-5.58.86-11.13,1.61-16.52,2.77a53.48,53.48,0,0,0-7.81,2.22c-2.43.94-4.81,2.22-6,3.93a4.34,4.34,0,0,0-.77,2.82,8.45,8.45,0,0,0,1,3.29,28,28,0,0,0,4.82,6.25,80.74,80.74,0,0,0,12.81,10.4c9.29,6,19.72,10.29,30.24,14.17,5.27,1.95,10.59,3.79,15.85,5.86,2.63,1,5.24,2.14,7.79,3.39a37.94,37.94,0,0,1,7.28,4.51,11.9,11.9,0,0,1,3.63,15.57,34.68,34.68,0,0,1-4.53,7.16,77.45,77.45,0,0,1-5.64,6.29,77.31,77.31,0,0,0,5.41-6.46,34.27,34.27,0,0,0,4.22-7.21,12.64,12.64,0,0,0,.88-8,12.44,12.44,0,0,0-4.71-6.43,37.71,37.71,0,0,0-7.15-4.16c-2.53-1.16-5.13-2.18-7.76-3.14-5.26-1.91-10.62-3.62-16-5.44-10.65-3.63-21.34-7.64-31.11-13.64a83.84,83.84,0,0,1-13.61-10.49,31.27,31.27,0,0,1-5.6-6.94,12,12,0,0,1-1.55-4.68,8.17,8.17,0,0,1,.19-2.7,8.56,8.56,0,0,1,1.09-2.5,12.1,12.1,0,0,1,3.6-3.44,24.27,24.27,0,0,1,4.08-2.08,57.3,57.3,0,0,1,8.36-2.56c5.59-1.31,11.19-2.17,16.71-3.12,2.76-.48,5.5-1,8.15-1.59a22.1,22.1,0,0,0,7-2.87,13.3,13.3,0,0,0,4.82-5.15,9.42,9.42,0,0,0,.69-6.53,16,16,0,0,0-3.42-6.33,33.25,33.25,0,0,0-5.73-5.27,69.74,69.74,0,0,0-14.19-7.8,135.81,135.81,0,0,0-15.61-5.42,135.53,135.53,0,0,1-16.3-5.51,81,81,0,0,1-15.41-8.31,43.39,43.39,0,0,1-12.6-13,25.53,25.53,0,0,1-3.34-9,19.13,19.13,0,0,1,1-10,16.17,16.17,0,0,1,6.69-8,15.88,15.88,0,0,1,5-1.93l4.13-.84a147.75,147.75,0,0,0,16-4,42.41,42.41,0,0,0,7.17-3,14,14,0,0,0,2.74-1.92,3.42,3.42,0,0,0,1.12-1.68,2.41,2.41,0,0,0-.43-1.61,11.07,11.07,0,0,0-2-2.4,28,28,0,0,0-2.92-2.31l-1.76-1.22c-.65-.46-1.26-.94-1.86-1.43a59,59,0,0,1-6.43-6.27c-2-2.19-3.79-4.44-5.54-6.74a267,267,0,0,1-18.55-28.74c-5.63-9.85-10.89-19.86-16-30s-9.91-20.31-14.57-30.61l-3.45-7.76L417,124.48l-.42-1-.39-.88c-.25-.59-.54-1.15-.82-1.71a22.74,22.74,0,0,0-1.89-3.09,13,13,0,0,0-2.2-2.42,7,7,0,0,0-2.31-1.33,4.49,4.49,0,0,0-2.22-.09,8.55,8.55,0,0,0-4.59,3.32,17.85,17.85,0,0,0-1.84,2.92c-.26.54-.51,1.07-.73,1.64-.12.27-.22.56-.32.85l-.35,1c-1.06,2.93-2.23,5.47-3.42,8.1s-2.42,5.16-3.67,7.7c-5,10.18-10.29,20.16-15.77,30.05s-11.17,19.66-17.16,29.28a310.2,310.2,0,0,1-19.39,28.11,90.46,90.46,0,0,1-12,12.85l-1.65,1.35c-.52.43-1,.85-1.53,1.29a38,38,0,0,0-2.79,2.65,12.42,12.42,0,0,0-1.94,2.57,2.33,2.33,0,0,0-.28.76c0,.11,0,0,0,.09a4.57,4.57,0,0,0,1.7,1.35,25.15,25.15,0,0,0,3.36,1.51c2.46.92,5.11,1.72,7.79,2.52,5.36,1.58,10.84,3.16,16.25,5q4.06,1.37,8.08,2.94c1.34.53,2.67,1.07,4,1.63.64.27,1.36.57,2.1.94a19.66,19.66,0,0,1,2.18,1.24,11.85,11.85,0,0,1,4,4.13,8.64,8.64,0,0,1,1,3.24,9.11,9.11,0,0,1-.27,3.23,14.48,14.48,0,0,1-2.42,4.85,29.32,29.32,0,0,1-3.14,3.56,87.46,87.46,0,0,1-14,10.47c-4.85,3-9.79,5.84-14.76,8.55-9.94,5.42-20,10.49-29.91,15.72-5,2.62-9.88,5.28-14.63,8.12-2.37,1.42-4.7,2.89-6.88,4.46a22.06,22.06,0,0,0-5.45,5.14,8,8,0,0,0-.76,1.39,5.36,5.36,0,0,0-.33,1.32,4.1,4.1,0,0,0,.69,2.53,15.62,15.62,0,0,0,5.49,4.62A80.14,80.14,0,0,0,298.56,353c5.31,1.66,10.73,3.06,16.18,4.58a64.81,64.81,0,0,1,8.26,2.74,27.74,27.74,0,0,1,7.69,4.74,13.65,13.65,0,0,1,3,3.81,9.27,9.27,0,0,1,1,5,11.14,11.14,0,0,1-1.54,4.7,19.09,19.09,0,0,1-2.8,3.67,40.6,40.6,0,0,1-6.81,5.54,83.78,83.78,0,0,1-7.41,4.35c-10.11,5.26-20.76,9.16-31.39,12.82a161.69,161.69,0,0,0-15.52,6.37A74.57,74.57,0,0,0,255,420a32.17,32.17,0,0,0-5.82,5.89,16.21,16.21,0,0,0-3.19,7.52,13.61,13.61,0,0,0,1.59,8A20.29,20.29,0,0,0,252.95,447.85Z" fill="#cb9866"/>
+                <path d="M207.5,484.06c7.05-5.11,15.14-8.66,23.34-11.63a177.13,177.13,0,0,1,25.29-6.88,263.65,263.65,0,0,1,52.22-4.49h3.28l3.28.09,6.56.19,6.55.39c2.18.13,4.37.26,6.54.48,4.35.39,8.71.74,13,1.28l6.51.75,6.49.91c17.3,2.5,34.41,6,51.36,10.19l12.62,3.2c4.18,1,8.34,2.18,12.55,3.06,8.38,2,16.82,3.63,25.29,5.13a353.5,353.5,0,0,0,51.17,5.47c17.11.32,34.36-.66,51-4.7a118.55,118.55,0,0,0,24.21-8.47,84.82,84.82,0,0,0,11.11-6.49,47.55,47.55,0,0,0,9.69-8.53,48.1,48.1,0,0,1-9,9.45,85.1,85.1,0,0,1-10.81,7.45,116.56,116.56,0,0,1-24.23,10.24,165.66,165.66,0,0,1-25.79,5.35,232.1,232.1,0,0,1-26.27,1.71c-8.77,0-17.55-.24-26.26-1.09-2.18-.2-4.37-.35-6.54-.6l-6.52-.78c-4.36-.46-8.67-1.19-13-1.82-8.64-1.37-17.22-3.09-25.74-5-4.28-.87-8.5-2-12.75-3l-12.62-3.11q-25.06-6.37-50.58-10.47a426.37,426.37,0,0,0-51.3-5.3c-8.59-.42-17.19-.29-25.78,0a240.1,240.1,0,0,0-25.68,2.24,186.57,186.57,0,0,0-25.27,5.19c-4.15,1.16-8.26,2.49-12.28,4.05-2,.79-4,1.6-6,2.52A50.82,50.82,0,0,0,207.5,484.06Z" fill="#cb9866"/>
+                <path d="M374.32,502.55a48.15,48.15,0,0,0,1.24,14.35c1.15,4.52,3.29,8.64,6.49,11.35a18.5,18.5,0,0,0,5.51,3.14,39.06,39.06,0,0,0,6.41,1.82,65.78,65.78,0,0,0,13.68,1.12,72.9,72.9,0,0,0,13.72-1.44,44.51,44.51,0,0,0,6.46-1.85,17.75,17.75,0,0,0,5.51-3.15,25.45,25.45,0,0,0,7.24-11.17,52,52,0,0,0,1.9-6.91c.48-2.37.83-4.8,1.18-7.25a55.16,55.16,0,0,1,.64,7.42,40.11,40.11,0,0,1-.52,7.56,31.23,31.23,0,0,1-2.19,7.5,24.37,24.37,0,0,1-4.46,6.79,25.16,25.16,0,0,1-6.61,5,39.72,39.72,0,0,1-7.4,3A58.55,58.55,0,0,1,407.75,542a55,55,0,0,1-15.47-1.9,36.65,36.65,0,0,1-7.46-3,25.3,25.3,0,0,1-6.6-5,19.63,19.63,0,0,1-2.5-3.34,21.72,21.72,0,0,1-1.79-3.67,27.66,27.66,0,0,1-1.65-7.7,38.16,38.16,0,0,1,2-14.87Z" fill="#cb9866"/>
+          
+              </g>
+        <path class="treeBottomPath" stroke="none" fill="none" stroke-width="8" d="M207.5,484.1c0,0,58.5-43.1,211.1-3.1s191-16.9,191-16.9"/>    
+        <path  class="treePath" fill="none" stroke="none" stroke-miterlimit="10" d="M252.95,447.85s-30.81-21.57,33.89-44.68,46.22-37,33.89-41.6-59.32-11.56-42.37-28.5,114-52.38,81.66-66.25S301.48,256,324.59,237.55,390.84,135.87,395.46,122c4.41-13.24,16.95-18.49,24.65,0s44.68,100.14,67.79,115.55-10.78,21.57-26.19,24.65-20,33.89,33.89,49.3,47.76,40.06,27.73,44.68-63.17,4.62-27.73,32.35,98.6,21.57,61.63,60.09"/>  
+                <path class="treeBottom" mask="url(#treeBottomMask)" d="M207.5,484.06c7.05-5.11,15.14-8.66,23.34-11.63a177.13,177.13,0,0,1,25.29-6.88,263.65,263.65,0,0,1,52.22-4.49h3.28l3.28.09,6.56.19,6.55.39c2.18.13,4.37.26,6.54.48,4.35.39,8.71.74,13,1.28l6.51.75,6.49.91c17.3,2.5,34.41,6,51.36,10.19l12.62,3.2c4.18,1,8.34,2.18,12.55,3.06,8.38,2,16.82,3.63,25.29,5.13a353.5,353.5,0,0,0,51.17,5.47c17.11.32,34.36-.66,51-4.7a118.55,118.55,0,0,0,24.21-8.47,84.82,84.82,0,0,0,11.11-6.49,47.55,47.55,0,0,0,9.69-8.53,48.1,48.1,0,0,1-9,9.45,85.1,85.1,0,0,1-10.81,7.45,116.56,116.56,0,0,1-24.23,10.24,165.66,165.66,0,0,1-25.79,5.35,232.1,232.1,0,0,1-26.27,1.71c-8.77,0-17.55-.24-26.26-1.09-2.18-.2-4.37-.35-6.54-.6l-6.52-.78c-4.36-.46-8.67-1.19-13-1.82-8.64-1.37-17.22-3.09-25.74-5-4.28-.87-8.5-2-12.75-3l-12.62-3.11q-25.06-6.37-50.58-10.47a426.37,426.37,0,0,0-51.3-5.3c-8.59-.42-17.19-.29-25.78,0a240.1,240.1,0,0,0-25.68,2.24,186.57,186.57,0,0,0-25.27,5.19c-4.15,1.16-8.26,2.49-12.28,4.05-2,.79-4,1.6-6,2.52A50.82,50.82,0,0,0,207.5,484.06Z" fill="#cb9866"/>
+                <path class="treePot" mask="url(#treePotMask)" d="M374.32,502.55a48.15,48.15,0,0,0,1.24,14.35c1.15,4.52,3.29,8.64,6.49,11.35a18.5,18.5,0,0,0,5.51,3.14,39.06,39.06,0,0,0,6.41,1.82,65.78,65.78,0,0,0,13.68,1.12,72.9,72.9,0,0,0,13.72-1.44,44.51,44.51,0,0,0,6.46-1.85,17.75,17.75,0,0,0,5.51-3.15,25.45,25.45,0,0,0,7.24-11.17,52,52,0,0,0,1.9-6.91c.48-2.37.83-4.8,1.18-7.25a55.16,55.16,0,0,1,.64,7.42,40.11,40.11,0,0,1-.52,7.56,31.23,31.23,0,0,1-2.19,7.5,24.37,24.37,0,0,1-4.46,6.79,25.16,25.16,0,0,1-6.61,5,39.72,39.72,0,0,1-7.4,3A58.55,58.55,0,0,1,407.75,542a55,55,0,0,1-15.47-1.9,36.65,36.65,0,0,1-7.46-3,25.3,25.3,0,0,1-6.6-5,19.63,19.63,0,0,1-2.5-3.34,21.72,21.72,0,0,1-1.79-3.67,27.66,27.66,0,0,1-1.65-7.7,38.16,38.16,0,0,1,2-14.87Z" fill="#cb9866"/>
+          <g class="treeStar" >
+                <path class="treeStarOutline" opacity="0" d="M421,53.27c5,.83,10.08,1.52,15.15,2.13l3.8.45,1.9.21c.33,0,.6.06,1,.12a2.41,2.41,0,0,1,1.27.66,2.52,2.52,0,0,1,.56,2.76,3.42,3.42,0,0,1-.78,1.07l-.66.69-2.65,2.77c-1.78,1.83-3.54,3.68-5.35,5.48l-2.7,2.71L429.81,75l-.69.67-.34.33,0,0h0a.14.14,0,0,0,0-.08s0-.07,0,0l0,.24.07.47.57,3.78c.4,2.52.71,5,1.06,7.57l.94,7.59.22,1.9c0,.06,0,.19,0,.34a2.21,2.21,0,0,1,0,.43,2.72,2.72,0,0,1-.21.84,2.85,2.85,0,0,1-2.65,1.75,2.57,2.57,0,0,1-.82-.14,3.12,3.12,0,0,1-.65-.3l-1.64-1-6.58-3.91-6.63-3.81-3.34-1.86-.42-.23-.21-.12-.14-.07a1,1,0,0,0-.59,0,1.15,1.15,0,0,0-.31.12l-.43.22-.85.44c-2.27,1.17-4.54,2.31-6.79,3.52s-4.51,2.38-6.74,3.61l-3.36,1.83-.84.46a3.07,3.07,0,0,1-1.28.44,2.68,2.68,0,0,1-2.84-3l.15-1,.29-1.89.57-3.78,1.18-7.56,1.24-7.52a.13.13,0,0,0,0,.08l0,0-.1-.09-.17-.17-1.37-1.34-2.73-2.68-10.93-10.7-.34-.33a4,4,0,0,1-.64-.84,3.63,3.63,0,0,1-.43-2.12,3.68,3.68,0,0,1,2.64-3.17l.52-.11.25,0,.47-.06.95-.12,1.9-.25,7.58-1,7.6-.9,1.9-.23.95-.11c.24,0,.11,0,.09,0l-.09.05-.07.08,0,0,.09-.16.46-.84.91-1.68c2.41-4.5,4.95-8.92,7.51-13.34l1-1.66.48-.83.24-.41.13-.23a3.49,3.49,0,0,1,.22-.33,2.66,2.66,0,0,1,2.83-.9,2.52,2.52,0,0,1,1.26.84,2.85,2.85,0,0,1,.37.62l.18.44q1.45,3.54,3,7.06c1,2.36,2,4.68,3.06,7,.51,1.17,1.06,2.32,1.59,3.48l.8,1.74a2.12,2.12,0,0,0,.45.75A1.42,1.42,0,0,0,421,53.27Zm-.06.39a1.82,1.82,0,0,1-1-.46,2.52,2.52,0,0,1-.56-.86l-.84-1.72c-.56-1.14-1.11-2.3-1.69-3.43-1.17-2.27-2.29-4.56-3.5-6.81s-2.39-4.51-3.6-6.76l-.23-.42a.8.8,0,0,0-.14-.18.58.58,0,0,0-.33-.15.56.56,0,0,0-.57.28L407,36.48c-2.09,4.66-4.2,9.31-6.45,13.88l-.83,1.72-.42.86-.13.27a3.57,3.57,0,0,1-2,1.67,4.26,4.26,0,0,1-.84.18l-.95.13-1.89.27L386,56.53l-7.58,1-3.49.44a.45.45,0,0,0,.34-.4.51.51,0,0,0-.07-.28s-.06-.08-.07-.08l.33.34,10.65,11,2.66,2.75,1.33,1.37.4.42a3.41,3.41,0,0,1,.53.84,3.36,3.36,0,0,1,.24,1.95c-.53,2.56-1,5-1.57,7.52L388,90.85l-.83,3.73-.42,1.87-.2.9a.5.5,0,0,0,0,.3.58.58,0,0,0,.52.37,6.28,6.28,0,0,0,1.38-.58l3.46-1.62q3.47-1.61,6.9-3.3c2.3-1.1,4.57-2.26,6.85-3.39l.86-.43.43-.21a2.55,2.55,0,0,1,.57-.22,2.21,2.21,0,0,1,1.29.08l.29.13.21.11.42.23,3.37,1.81,6.8,3.51,6.85,3.41,1.71.85c.19.09.15.07.22.08a.25.25,0,0,0,.12,0,.42.42,0,0,0,.21-.1.33.33,0,0,0,.1-.19.2.2,0,0,0,0-.09.1.1,0,0,0,0,0l0-.13L428.74,96l-1.42-7.52c-.43-2.51-.9-5-1.29-7.54l-.6-3.78-.08-.47,0-.24a3.75,3.75,0,0,1,0-.45,3.37,3.37,0,0,1,.52-1.9,3.33,3.33,0,0,1,.3-.4,3.73,3.73,0,0,1,.3-.3l.35-.32.7-.65,2.81-2.59,2.86-2.54c1.9-1.71,3.84-3.36,5.77-5l2.91-2.49a12.91,12.91,0,0,0,1.15-1,.7.7,0,0,0-.06-.79.73.73,0,0,0-.37-.26c-.23-.06-.6-.13-.89-.2l-1.87-.4L436,56.39C431,55.39,426,54.45,420.95,53.66Z" fill="#FFFCF9" />  
+          <path  d="M408.12,83.45l-17.78,8.94,3.72-19.55-14-14.15,19.74-2.5,9.13-17.68,8.48,18L437,59.73l-14.5,13.63,3,19.67Z" fill="#C89568"/> 
+          </g>
+          <circle class="sparkle" fill="url(#dotGrad)" cx="0" cy="0" r="50"/> 
+        
+            </g>
+        </svg>
+        <div id="div1">🎄Merry Christmas, Sweet Daisy🎄</div>
+<!--    //修改2：这里能改文字-->
+        <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
+        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/MorphSVGPlugin3.min.js"></script>
+        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/DrawSVGPlugin3.min.js"></script>
+        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/MotionPathPlugin.min.js"></script>
+        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/Physics2DPlugin3.min.js"></script>
+        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/EasePack3.min.js"></script>
+        <script src="script.js"></script>
 
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+              // Get the div and the SVG elements
+              var div1 = document.getElementById("div1");
+              var svg = document.getElementById("mySvg");
 
-      // Callback function after completing the movement
-      //这里新增了（index10的变化）
-      setTimeout(function() {
-        isMoving = false;
-        if (callback) {
-          callback();
-        }
-      }, 600);
-    }
+              // Function to show the div after 10 seconds
+              function showDiv() {
+                  // Get the bounding box of the SVG
+                  // var bbox = svg.getBoundingClientRect();
+                  // // Position the div over the SVG
+                  // div1.style.top = bbox.top + 'px';
+                  // div1.style.left = bbox.left + 'px';
+                  // Show the div
+                  div1.style.display = 'block';
+              }
 
-
-    //这是V10修改抽搐问题后的代码
-    function moveCharacterTo2(x, y, targetCellId, callback) {
-      if (isMoving) return; // 如果角色正在移动，则不执行任何操作
-      isMoving = true; // 设置移动标志
-
-      character.style.display = 'none'; // 隐藏角色
-      character.style.left = x + 'px';
-      character.style.top = y + 'px';
-
-      setTimeout(function() {
-        character.style.display = 'block'; // 显示角色
-        isMoving = false; // 重置移动标志
-        window.scrollTo({
-              top: scrollY,
-              left: scrollX,
-              behavior: 'smooth'
+              // Set timeout to show the div after 10 seconds
+              setTimeout(showDiv, 5500); // 修改1：这里能调时间
           });
-        if (callback) {
-          callback();
-        }
-      }, 1); // 短暂延迟以实现瞬移效果
-    }
 
-    function positionCharacterInBStart() {
-    // 获取元素
-    var character = document.getElementById('character');
-    var bStart = document.getElementById('B_Start');
-
-    // 确保两个元素都存在
-    if (character && bStart) {
-      
-        var bStartRect = bStart.getBoundingClientRect();
-
-        // 计算B_Start的中心位置
-        var centerX = bStartRect.left + (bStartRect.width / 2);
-        var centerY = bStartRect.top + (bStartRect.height / 2);
-
-        // 设置character的样式
-        character.style.position = 'absolute';
-        character.style.left = centerX - (character.offsetWidth / 2) + 'px';
-        character.style.top = centerY - (character.offsetHeight / 2) + 'px';
-
-        // var scrollX = bStartRect.left + (bStartRect.offsetWidth / 2) - (window.innerWidth / 2);
-        // var scrollY =  bStartRect.left + (bStartRect.offsetHeight / 2) - (window.innerHeight / 2);
-
-
-        // window.scrollTo({
-        //       top: scrollY,
-        //       left: scrollX,
-        //       behavior: 'smooth'
-        //   });
-    }
-}
-
-
-window.onload = function() {
-
-      // 2. 获取浏览器窗口大小
-    var browserWidth = window.innerWidth;
-    var browserHeight = window.innerHeight;
-
-    // 3. 获取 'whole_map' 元素的大小和位置
-    var map = document.getElementById('whole_map');
-
-    var character = document.getElementById('character');
-    if (map) {
-        var rect = map.getBoundingClientRect();
-
-        // 4. 计算缩放比例
-        var scaleX = browserWidth / rect.width;
-        var scaleY = browserHeight / rect.height;
-        var scale = Math.max(scaleX, scaleY);
-
-        // 5. 设置 'whole_map' 元素的缩放和位置
-        map.style.transformOrigin = 'top left';
-        map.style.transform = `scale(${scale})`;
-        map.style.position = 'absolute';
-        map.style.left = -rect.left + 'px';
-        map.style.top = -rect.top + 'px';
-        map.style.paddingRight = "100vw"
-        map.style.paddingLeft = "300vw"
-    }
-        positionCharacterInBStart();
-
-        setTimeout(() => {
-
-        var bStartRect = document.getElementById("B_Start");
-        bStartRect.scrollIntoView()
-        /* window.resizeTo(map.style.width,map.style.height) */
-        alert(window.innerWidth)
-        },1000);
-
-  };
-  });
-
-
-// 显示带有指定图片的卡片的函数
-function showCardWithImage(imageUrl,now_ID) {
-  button=document.getElementById(now_ID)
-  cardImage.src = imageUrl; // 设置图片源
-  var centerX = window.scrollX+window.innerWidth / 2;
-  var centerY = window.scrollY + (window.innerHeight / 2);
-  /* card.style.left = button.left + 'px';
-    card.style.top = button.top + 'px'; */
-  card.style.left = centerX+button.offsetLeft + 'px';
-  card.style.top = card.height/2+button.offsetTop + 'px';
-  card.style.width = "80%";
-  card.style.display = 'block'; // 显示卡片
-  card.style.animation = 'rotateCard 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards'; // 应用动画
-
-
-}
-// //V11新增滑动特效
-// document.addEventListener('click', function(event) {
-//   var character = document.getElementById('character'); // 获取ID为'character'的元素
-//   var wholeMap = document.getElementById('whole_map'); // 获取ID为'whole_map'的元素
-//
-//   // 计算'character'元素的新位置
-//   var newX = event.clientX - character.offsetWidth / 2; // 新的X坐标
-//   var newY = event.clientY - character.offsetHeight / 2; // 新的Y坐标
-//
-//   // 将'character'元素移动到新位置
-//   character.style.left = newX + 'px'; // 设置新的左边距
-//   character.style.top = newY + 'px'; // 设置新的顶边距
-//
-//   // 移动背景以产生视差效果
-//   var backgroundShiftX = -newX; // 背景X轴的移动量
-//   var backgroundShiftY = -newY; // 背景Y轴的移动量
-//
-//   wholeMap.style.left = backgroundShiftX + 'px'; // 设置背景的新左边距
-//   wholeMap.style.top = backgroundShiftY + 'px'; // 设置背景的新顶边距
-// });
-
-// //V12尝试新的平移（绑定格子）
-// document.addEventListener('click', function(event) {
-//   var character = document.getElementById('character'); // Get the 'character' element
-//   var gridContainer = document.getElementById('grid-container'); // Get the 'grid-container' element
-//
-//   // Calculate the new position for the character
-//   var newX = event.clientX - character.offsetWidth / 2;
-//   var newY = event.clientY - character.offsetHeight / 2;
-//
-//   // Move the character to the new position
-//   character.style.transform = `translate(${newX}px, ${newY}px)`;
-//
-//   // Move the grid container in the opposite direction
-//   gridContainer.style.transform = `translate(${-newX}px, ${-newY}px)`;
-// });
-// //
-// 但要新增<div id="grid-container">
-//         <!-- All your grid divs go here -->
-//         </div>
-
-
-</script>
+        </script>
 
 </body>
 </html>
